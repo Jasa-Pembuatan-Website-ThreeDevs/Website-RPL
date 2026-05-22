@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Depan() {
   return (
@@ -90,13 +91,13 @@ export default function Depan() {
 
           {/* Tombol Aksi (Buttons) */}
           <div className="flex flex-col justify-center items-center gap-4 mt-2">
-            <div class="flex justify-center gap-6">
+            <div className="flex justify-center gap-6">
               <button className="px-6 py-3 bg-[#4bf3ce] text-black font-bold rounded-xl hover:brightness-110 transition-all shadow-lg shadow-emerald-500/10 text-sm">
                 Lihat Karya Kami
               </button>
-              <button className="px-6 py-3 border border-gray-800 bg-[#12181F]/40 backdrop-blur text-white font-semibold rounded-xl hover:bg-gray-800/40 transition-colors text-sm">
+              <Link to="/register" className="px-6 py-3 border border-gray-800 bg-[#12181F]/40 backdrop-blur text-white font-semibold rounded-xl hover:bg-gray-800/40 transition-colors text-sm">
                 Daftar Sekarang
-              </button>
+              </Link>
             </div>
 
             {/* Statistik (Stats Section) */}
