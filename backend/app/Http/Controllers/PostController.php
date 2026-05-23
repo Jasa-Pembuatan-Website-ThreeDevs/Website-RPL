@@ -8,25 +8,44 @@ use App\Models\Post;
 use App\Traits\HandlesFileUploads;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PostController extends Controller
 {
     use HandlesFileUploads;
 
-    public function index(Request $request): AnonymousResourceCollection
+    /**
+     * Get all published posts
+     */
+    public function index(Request $request): JsonResponse
     {
-        $query = Post::latest();
+        $posts = Post::where('is_published', true)
+            ->latest()
+            ->paginate($request->get('per_page', 10));
 
-        // If not authenticated, only show published posts
-        if (!auth('sanctum')->check()) {
-            $query->where('is_published', true);
-        }
-
-        $posts = $query->paginate($request->get('per_page', 10));
-        return PostResource::collection($posts);
+        return $this->sendResponse(
+            PostResource::collection($posts)->response()->getData(true),
+            'Posts retrieved successfully'
+        );
     }
 
+    /**
+     * Get single post by slug
+     */
+    public function show($slug): JsonResponse
+    {
+        $post = Post::where('slug', $slug)
+            ->where('is_published', true)
+            ->firstOrFail();
+
+        return $this->sendResponse(
+            new PostResource($post),
+            'Post details retrieved successfully'
+        );
+    }
+
+    /**
+     * Store new post (Admin only usually, but requested as example)
+     */
     public function store(PostRequest $request): JsonResponse
     {
         $data = $request->validated();
@@ -37,22 +56,16 @@ class PostController extends Controller
 
         $post = Post::create($data);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Post created successfully',
-            'data' => new PostResource($post),
-        ], 201);
+        return $this->sendResponse(
+            new PostResource($post),
+            'Post created successfully',
+            201
+        );
     }
 
-    public function show(Post $post): PostResource
-    {
-        if (!$post->is_published && !auth('sanctum')->check()) {
-            abort(404);
-        }
-
-        return new PostResource($post);
-    }
-
+    /**
+     * Update post
+     */
     public function update(PostRequest $request, Post $post): JsonResponse
     {
         $data = $request->validated();
@@ -63,21 +76,26 @@ class PostController extends Controller
 
         $post->update($data);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Post updated successfully',
-            'data' => new PostResource($post),
-        ]);
+        return $this->sendResponse(
+            new PostResource($post),
+            'Post updated successfully'
+        );
     }
 
+    /**
+     * Delete post
+     */
     public function destroy(Post $post): JsonResponse
     {
-        $this->deleteFile($post->image_path);
+        if ($post->image_path) {
+            $this->deleteFile($post->image_path);
+        }
+        
         $post->delete();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Post deleted successfully',
-        ]);
+        return $this->sendResponse(
+            null,
+            'Post deleted successfully'
+        );
     }
 }

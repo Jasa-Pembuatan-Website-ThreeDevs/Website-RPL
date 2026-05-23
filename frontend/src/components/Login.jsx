@@ -1,8 +1,22 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    // Effect to handle body background and overflow when on login page
+    useEffect(() => {
+        const originalBg = document.body.style.background;
+        const originalOverflow = document.body.style.overflow;
+        
+        document.body.style.background = '#0f172a';
+        document.body.style.overflow = 'hidden';
+        
+        return () => {
+            document.body.style.background = originalBg;
+            document.body.style.overflow = originalOverflow;
+        };
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -10,7 +24,7 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen w-full flex items-center justify-center bg-[#0f172a] overflow-hidden relative font-sans">
+        <div className="fixed inset-0 z-[9999] w-full h-full flex items-center justify-center bg-[#0f172a] overflow-hidden font-sans">
             {/* Animated Background Orbs */}
             <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/20 rounded-full blur-[120px] animate-pulse-slow"></div>
             <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-600/20 rounded-full blur-[120px] animate-pulse-slow"></div>

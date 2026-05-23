@@ -7,55 +7,61 @@ use App\Http\Resources\MessageResource;
 use App\Models\Message;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class MessageController extends Controller
 {
-    public function index(): AnonymousResourceCollection
+    /**
+     * Get all messages (Admin)
+     */
+    public function index(): JsonResponse
     {
         $messages = Message::latest()->get();
-        return MessageResource::collection($messages);
+        return $this->sendResponse(
+            MessageResource::collection($messages),
+            'Messages retrieved successfully'
+        );
     }
 
+    /**
+     * Store a new contact message
+     */
     public function store(MessageRequest $request): JsonResponse
     {
+        // Fields: sender_name, email, subject, message
         $message = Message::create($request->validated());
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Message sent successfully',
-            'data' => new MessageResource($message),
-        ], 201);
+        return $this->sendResponse(
+            new MessageResource($message),
+            'Message sent successfully! We will get back to you soon.',
+            201
+        );
     }
 
-    public function show(Message $message): MessageResource
+    /**
+     * Show message detail
+     */
+    public function show(Message $message): JsonResponse
     {
-        // Auto mark as read when viewed by admin
         if (!$message->is_read) {
             $message->update(['is_read' => true]);
         }
 
-        return new MessageResource($message);
+        return $this->sendResponse(
+            new MessageResource($message),
+            'Message details retrieved'
+        );
     }
 
+    /**
+     * Delete message
+     */
     public function destroy(Message $message): JsonResponse
     {
         $message->delete();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Message deleted successfully',
-        ]);
-    }
-
-    public function markAsRead(Message $message): JsonResponse
-    {
-        $message->update(['is_read' => true]);
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Message marked as read',
-            'data' => new MessageResource($message),
-        ]);
+        return $this->sendResponse(
+            null,
+            'Message deleted successfully'
+        );
     }
 }

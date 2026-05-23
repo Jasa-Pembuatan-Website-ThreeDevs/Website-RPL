@@ -4,29 +4,38 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Http\Resources\ProjectResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Get all projects with student and category
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
-        $query = Project::with(['student.user', 'category']);
+        $projects = Project::with(['student.user', 'category'])
+            ->latest()
+            ->paginate($request->get('per_page', 10));
 
-        if ($request->has('category_id')) {
-            $query->where('category_id', $request->category_id);
-        }
-
-        return ProjectResource::collection($query->get());
+        return $this->sendResponse(
+            ProjectResource::collection($projects)->response()->getData(true),
+            'Projects retrieved successfully'
+        );
     }
 
     /**
-     * Display the specified resource.
+     * Get project by slug
      */
-    public function show(Project $project)
+    public function show($slug): JsonResponse
     {
-        return new ProjectResource($project->load(['student.user', 'category']));
+        $project = Project::with(['student.user', 'category'])
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        return $this->sendResponse(
+            new ProjectResource($project),
+            'Project details retrieved successfully'
+        );
     }
 }

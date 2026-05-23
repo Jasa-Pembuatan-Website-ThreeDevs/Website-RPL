@@ -7,52 +7,65 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\DudikaController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\StudentController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\StudentProfileController;
+use App\Http\Controllers\StudentProjectController;
+use App\Http\Controllers\PublicApiController;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| API Routes - Headless CMS Profil Jurusan
 |--------------------------------------------------------------------------
 */
 
-// Authentication Routes
+/**
+ * Authentication Routes
+ */
+Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-// Public Routes
-Route::get('/teachers', [TeacherController::class, 'index']);
+/**
+ * Public Routes (Frontend Showcase)
+ */
+Route::get('/public/projects', [PublicApiController::class, 'projects']);
+Route::get('/public/categories', [PublicApiController::class, 'categories']);
+
+// Legacy Public Routes
 Route::get('/posts', [PostController::class, 'index']);
-Route::get('/posts/{post:slug}', [PostController::class, 'show']);
+Route::get('/posts/{slug}', [PostController::class, 'show']);
+Route::get('/teachers', [TeacherController::class, 'index']);
 Route::get('/galleries', [GalleryController::class, 'index']);
+Route::get('/partners', [DudikaController::class, 'index']);
+Route::get('/projects', [ProjectController::class, 'index']);
+Route::get('/projects/{project:slug}', [ProjectController::class, 'show']);
 Route::post('/messages', [MessageController::class, 'store']);
 
-Route::get('/students', [StudentController::class, 'index']);
-Route::get('/students/{student}', [StudentController::class, 'show']);
-Route::get('/projects', [ProjectController::class, 'index']);
-Route::get('/projects/{project}', [ProjectController::class, 'show']);
-Route::get('/dudika', [DudikaController::class, 'index']);
-Route::get('/dudika/{dudika}', [DudikaController::class, 'show']);
-
-// Admin Protected Routes
+/**
+ * Protected Routes (Student Dashboard & Admin Management)
+ */
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/me', function (Request $request) {
-        return $request->user();
-    });
+    Route::get('/me', fn() => auth()->user());
 
-    // Teacher Management
-    Route::apiResource('teachers', TeacherController::class)->except(['index']);
+    // Student Profile Management
+    Route::get('/student/profile', [StudentProfileController::class, 'show']);
+    Route::post('/student/profile', [StudentProfileController::class, 'updateOrCreate']);
 
-    // Post Management
+    // Student Project Management
+    Route::get('/student/projects', [StudentProjectController::class, 'index']);
+    Route::post('/student/projects', [StudentProjectController::class, 'store']);
+    Route::put('/student/projects/{id}', [StudentProjectController::class, 'update']);
+    Route::delete('/student/projects/{id}', [StudentProjectController::class, 'destroy']);
+
+    // CMS Management (Admin Full CRUD)
     Route::apiResource('posts', PostController::class)->except(['index', 'show']);
-
-    // Gallery Management
+    Route::apiResource('teachers', TeacherController::class)->except(['index']);
     Route::apiResource('galleries', GalleryController::class)->except(['index']);
+    Route::apiResource('projects', ProjectController::class)->except(['index', 'show']);
+    Route::apiResource('partners', DudikaController::class)->except(['index']);
 
     // Message Management
     Route::get('/messages', [MessageController::class, 'index']);
     Route::get('/messages/{message}', [MessageController::class, 'show']);
     Route::delete('/messages/{message}', [MessageController::class, 'destroy']);
-    Route::patch('/messages/{message}/read', [MessageController::class, 'markAsRead']);
 });
