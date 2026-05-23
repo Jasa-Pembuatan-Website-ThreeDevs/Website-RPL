@@ -7,16 +7,18 @@ use App\Http\Resources\TeacherResource;
 use App\Models\Teacher;
 use App\Traits\HandlesFileUploads;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class TeacherController extends Controller
 {
     use HandlesFileUploads;
 
-    public function index(): AnonymousResourceCollection
+    public function index(): JsonResponse
     {
         $teachers = Teacher::latest()->get();
-        return TeacherResource::collection($teachers);
+        return $this->sendResponse(
+            TeacherResource::collection($teachers),
+            'Teachers retrieved successfully'
+        );
     }
 
     public function store(TeacherRequest $request): JsonResponse
@@ -29,16 +31,19 @@ class TeacherController extends Controller
 
         $teacher = Teacher::create($data);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Teacher created successfully',
-            'data' => new TeacherResource($teacher),
-        ], 201);
+        return $this->sendResponse(
+            new TeacherResource($teacher),
+            'Teacher created successfully',
+            201
+        );
     }
 
-    public function show(Teacher $teacher): TeacherResource
+    public function show(Teacher $teacher): JsonResponse
     {
-        return new TeacherResource($teacher);
+        return $this->sendResponse(
+            new TeacherResource($teacher),
+            'Teacher details retrieved'
+        );
     }
 
     public function update(TeacherRequest $request, Teacher $teacher): JsonResponse
@@ -51,21 +56,22 @@ class TeacherController extends Controller
 
         $teacher->update($data);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Teacher updated successfully',
-            'data' => new TeacherResource($teacher),
-        ]);
+        return $this->sendResponse(
+            new TeacherResource($teacher),
+            'Teacher updated successfully'
+        );
     }
 
     public function destroy(Teacher $teacher): JsonResponse
     {
-        $this->deleteFile($teacher->photo_path);
+        if ($teacher->photo_path) {
+            $this->deleteFile($teacher->photo_path);
+        }
         $teacher->delete();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Teacher deleted successfully',
-        ]);
+        return $this->sendResponse(
+            null,
+            'Teacher deleted successfully'
+        );
     }
 }

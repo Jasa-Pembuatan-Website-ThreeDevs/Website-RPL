@@ -1,7 +1,8 @@
 import Depan from "./assets/pages/Depan";
 import Login from "./components/Login";
 import { RegistrationPage } from "./components/Registration";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 
+"react-router-dom";
 
 function AppRoutes() {
   const navigate = useNavigate();

@@ -7,16 +7,18 @@ use App\Http\Resources\GalleryResource;
 use App\Models\Gallery;
 use App\Traits\HandlesFileUploads;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class GalleryController extends Controller
 {
     use HandlesFileUploads;
 
-    public function index(): AnonymousResourceCollection
+    public function index(): JsonResponse
     {
         $galleries = Gallery::latest()->get();
-        return GalleryResource::collection($galleries);
+        return $this->sendResponse(
+            GalleryResource::collection($galleries),
+            'Gallery items retrieved successfully'
+        );
     }
 
     public function store(GalleryRequest $request): JsonResponse
@@ -29,16 +31,19 @@ class GalleryController extends Controller
 
         $gallery = Gallery::create($data);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Image added to gallery',
-            'data' => new GalleryResource($gallery),
-        ], 201);
+        return $this->sendResponse(
+            new GalleryResource($gallery),
+            'Image added to gallery successfully',
+            201
+        );
     }
 
-    public function show(Gallery $gallery): GalleryResource
+    public function show(Gallery $gallery): JsonResponse
     {
-        return new GalleryResource($gallery);
+        return $this->sendResponse(
+            new GalleryResource($gallery),
+            'Gallery item details retrieved'
+        );
     }
 
     public function update(GalleryRequest $request, Gallery $gallery): JsonResponse
@@ -51,21 +56,22 @@ class GalleryController extends Controller
 
         $gallery->update($data);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Gallery item updated',
-            'data' => new GalleryResource($gallery),
-        ]);
+        return $this->sendResponse(
+            new GalleryResource($gallery),
+            'Gallery item updated successfully'
+        );
     }
 
     public function destroy(Gallery $gallery): JsonResponse
     {
-        $this->deleteFile($gallery->image_path);
+        if ($gallery->image_path) {
+            $this->deleteFile($gallery->image_path);
+        }
         $gallery->delete();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Gallery item deleted',
-        ]);
+        return $this->sendResponse(
+            null,
+            'Gallery item deleted successfully'
+        );
     }
 }
