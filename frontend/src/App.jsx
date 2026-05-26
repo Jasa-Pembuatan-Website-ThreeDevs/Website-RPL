@@ -1,30 +1,47 @@
 import Depan from "./assets/pages/Depan";
 import Login from "./components/Login";
 import { RegistrationPage } from "./components/Registration";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 
-"react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import StudentDashboard from "./pages/StudentDashboard";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
+import StudentRegister from "./pages/StudentRegister";
 
 function AppRoutes() {
   const navigate = useNavigate();
-  
+
   return (
     <Routes>
       <Route path="/" element={<Depan />} />
-
-      {/* Hidden route for login */}
       <Route path="/auth/v1/secure-login" element={<Login />} />
-      
-      {/* Route for registration */}
-      <Route 
-        path="/register" 
+      <Route path="/student/register" element={<StudentRegister />} />
+      <Route
+        path="/register"
         element={
-          <RegistrationPage 
+          <RegistrationPage
             onNavigate={(page) => {
-              if (page === 'landing') navigate('/');
+              if (page === "landing") navigate("/");
               else navigate(page);
-            }} 
+            }}
           />
-        } 
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute role="student">
+            <StudentDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute role="admin">
+            <AdminDashboardPage />
+          </ProtectedRoute>
+        }
       />
     </Routes>
   );
@@ -33,7 +50,9 @@ function AppRoutes() {
 function App() {
   return (
     <Router>
-      <AppRoutes />
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
     </Router>
   );
 }

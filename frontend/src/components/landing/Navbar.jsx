@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -20,15 +21,26 @@ const Navbar = () => {
       </div>
 
       <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
-        {["Home", "Portfolio", "Tech Stack", "Contact"].map((item) => (
+        {[
+          { label: "Home", href: "#home" },
+          { label: "Portfolio", href: "#portfolio" },
+          { label: "Mitra", href: "#partners" },
+          { label: "Tech Stack", href: "#tech-stack" },
+        ].map((item) => (
           <a
-            key={item}
-            href={`#${item.toLowerCase().replace(" ", "-")}`}
+            key={item.label}
+            href={item.href}
             className="hover:text-[#00F5A0] transition-colors"
           >
-            {item}
+            {item.label}
           </a>
         ))}
+        <Link
+          to="/auth/v1/secure-login"
+          className="px-4 py-2 border border-gray-600/40 bg-[#12181F]/40 backdrop-blur rounded-lg hover:border-[#00F5A0]/40 hover:text-[#00F5A0] transition-colors"
+        >
+          Masuk
+        </Link>
       </nav>
     </header>
   );
