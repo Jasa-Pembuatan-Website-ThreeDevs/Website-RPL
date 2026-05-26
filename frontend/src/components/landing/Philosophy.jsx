@@ -1,9 +1,10 @@
 import { memo } from "react";
+import Reveal from "./Reveal";
 
 const Philosophy = () => {
   return (
-    <section id="philosophy" className="pt-24">
-      {/* Section Headers */}
+    <section id="philosophy" className="pt-24 scroll-mt-28">
+      <Reveal>
       <div className="flex flex-col items-center gap-3 mb-16">
         <h3 className="text-4xl md:text-5xl font-extrabold text-center">
           Our Philosophy
@@ -12,11 +13,11 @@ const Philosophy = () => {
           Building great developers through skill and character
         </p>
       </div>
+      </Reveal>
 
-      {/* Philosophy Cards Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 ">
-        {/* Good Skill Card */}
-        <div className="border border-emerald-500/40 rounded-2xl p-8 bg-gradient-to-br from-emerald-500/5 to-transparent backdrop-blur-sm hover:border-emerald-500/60 transition-all duration-300">
+        <Reveal delay={80}>
+        <div className="border border-emerald-500/40 rounded-2xl p-8 bg-gradient-to-br from-emerald-500/5 to-transparent backdrop-blur-sm hover:border-emerald-500/60 hover:scale-[1.01] transition-all duration-300 h-full">
           {/* Icon & Title */}
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 bg-[#00F5A0] rounded-lg flex items-center justify-center text-black font-bold text-lg">
@@ -61,10 +62,11 @@ const Philosophy = () => {
             </div>
           </div>
         </div>
+        </Reveal>
 
-        {/* Good Attitude Card */}
+        <Reveal delay={160}>
         <div>
-          <div className="border border-yellow-500/40 rounded-2xl p-6 md:p-8 bg-gradient-to-br from-yellow-500/5 to-transparent backdrop-blur-sm hover:border-yellow-500/60 transition-all duration-300">
+          <div className="border border-yellow-500/40 rounded-2xl p-6 md:p-8 bg-gradient-to-br from-yellow-500/5 to-transparent backdrop-blur-sm hover:border-yellow-500/60 hover:scale-[1.01] transition-all duration-300">
             {/* Icon & Title */}
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 bg-yellow-400 rounded-lg flex items-center justify-center text-black font-bold text-lg">
@@ -100,6 +102,7 @@ const Philosophy = () => {
             </div>
           </div>
         </div>
+        </Reveal>
       </div>
     </section>
   );

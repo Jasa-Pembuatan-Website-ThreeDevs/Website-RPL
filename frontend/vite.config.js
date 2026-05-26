@@ -7,4 +7,16 @@ export default defineConfig({
   optimizeDeps: {
     include: ['lucide-react'],
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      },
+      '/storage': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      },
+    },
+  },
 })
