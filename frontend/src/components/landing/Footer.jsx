@@ -1,41 +1,71 @@
 import { memo } from "react";
+import { Mail, MapPin, Phone, Heart } from "lucide-react";
 
 const Footer = () => {
-  return (
-    <footer className="max-w-7xl mx-auto px-4">
-      {/* Footer Background Gradient Overlays */}
-      <div className="absolute top-0 left-[-20%] w-[400px] h-[400px] bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none"></div>
-      <div className="absolute bottom-0 right-[-10%] w-[300px] h-[300px] bg-cyan-500/5 rounded-full blur-[90px] pointer-events-none"></div>
+  const currentYear = new Date().getFullYear();
 
-      {/* Footer Content Container */}
-      <div className="relative z-10 mb-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
-          {/* --- TENTANG KAMI COLUMN --- */}
-          <div className="flex flex-col gap-6">
-            <h3 className="text-lg font-bold text-white">Tentang Kami</h3>
+  return (
+    <footer className="relative bg-gradient-to-b from-transparent via-gray-900/40 to-gray-950">
+      {/* Background Gradient Elements */}
+      <div className="absolute top-0 left-[-20%] w-[400px] h-[400px] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-0 right-[-10%] w-[300px] h-[300px] bg-cyan-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+      {/* Main Footer Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 py-16 md:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-8 mb-16">
+          {/* --- BRAND COLUMN --- */}
+          <div className="flex flex-col gap-6 md:col-span-1">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-gradient-to-br from-[#00F5A0] to-[#4bf3ce] rounded-xl flex items-center justify-center font-bold text-black text-sm tracking-tighter shadow-lg shadow-emerald-500/30">
+                SM
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-white">SMK Muhammadiyah</h4>
+                <p className="text-[11px] text-[#00F5A0] font-semibold mt-0.5">RPL Department</p>
+              </div>
+            </div>
             <p className="text-sm text-gray-400 leading-relaxed">
-              SMKS Muhammadiyah 1 Genteng - Jurusan Rekayasa Perangkat Lunak
-              mempersiapkan generasi developer masa depan dengan skill teknis
-              dan karakter ungguI yang siap bersaing di industri teknologi
-              global.
+              Mempersiapkan generasi developer masa depan dengan skill teknis dan karakter unggulan.
             </p>
+            <div className="flex items-center gap-2 text-sm text-[#00F5A0] font-semibold">
+              ✨ Good Skill, Good Attitude
+            </div>
+          </div>
+
+          {/* --- NAVIGASI COLUMN --- */}
+          <div className="flex flex-col gap-6">
+            <h3 className="text-base font-bold text-white">Navigasi</h3>
+            <ul className="flex flex-col gap-3">
+              {[
+                { label: "Beranda", href: "#home" },
+                { label: "Filosofi", href: "#philosophy" },
+                { label: "Portfolio", href: "#portfolio" },
+                { label: "Tech Stack", href: "#tech-stack" },
+              ].map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-gray-400 hover:text-[#00F5A0] transition-colors duration-200 flex items-center gap-1 group"
+                  >
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* --- KONTAK COLUMN --- */}
           <div className="flex flex-col gap-6">
-            <h3 className="text-lg font-bold text-white">Kontak</h3>
-            <div className="flex flex-col gap-4">
-              {/* Address */}
+            <h3 className="text-base font-bold text-white">Kontak</h3>
+            <div className="flex flex-col gap-3">
+              {/* Email */}
               <a
-                href="#"
-                className="flex items-start gap-3 text-sm text-gray-400 hover:text-[#00F5A0] transition-colors group"
+                href="mailto:rpl@smkmuh1genteng.sch.id"
+                className="flex items-center gap-3 text-sm text-gray-400 hover:text-[#00F5A0] transition-colors group"
               >
-                <span className="text-lg mt-0.5 text-gray-500 group-hover:text-[#00F5A0] transition-colors">
-                  📍
-                </span>
-                <span className="leading-relaxed">
-                  Genteng, Banyuwangi, Jawa Timur
-                </span>
+                <Mail className="w-4 h-4 flex-shrink-0 group-hover:scale-125 transition-transform" />
+                <span className="break-all">rpl@smkmuh1genteng.sch.id</span>
               </a>
 
               {/* Phone */}
@@ -43,107 +73,107 @@ const Footer = () => {
                 href="tel:+621234567890"
                 className="flex items-center gap-3 text-sm text-gray-400 hover:text-[#00F5A0] transition-colors group"
               >
-                <span className="text-lg text-gray-500 group-hover:text-[#00F5A0] transition-colors">
-                  📞
-                </span>
+                <Phone className="w-4 h-4 flex-shrink-0 group-hover:scale-125 transition-transform" />
                 <span>+62 123 4567 8900</span>
               </a>
 
-              {/* Email */}
+              {/* Address */}
               <a
-                href="mailto:rpl@smkmuh1genteng.sch.id"
-                className="flex items-center gap-3 text-sm text-gray-400 hover:text-[#00F5A0] transition-colors group"
+                href="https://maps.google.com/?q=SMKS+Muhammadiyah+1+Genteng"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 text-sm text-gray-400 hover:text-[#00F5A0] transition-colors group"
               >
-                <span className="text-lg text-gray-500 group-hover:text-[#00F5A0] transition-colors">
-                  ✉️
-                </span>
-                <span className="break-all">rpl@smkmuh1genteng.sch.id</span>
+                <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5 group-hover:scale-125 transition-transform" />
+                <span className="leading-relaxed">Genteng, Banyuwangi, Jawa Timur</span>
               </a>
             </div>
           </div>
 
           {/* --- IKUTI KAMI COLUMN --- */}
           <div className="flex flex-col gap-6">
-            <h3 className="text-lg font-bold text-white">Ikuti Kami</h3>
-            <div className="flex items-center gap-4">
-              {/* Instagram */}
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-gray-800/50 hover:bg-gradient-to-br hover:from-pink-500/20 hover:to-purple-500/20 border border-gray-700/40 hover:border-pink-500/60 flex items-center justify-center text-lg transition-all duration-300 hover:scale-110"
-              >
-                📷
-              </a>
-
-              {/* YouTube */}
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-gray-800/50 hover:bg-gradient-to-br hover:from-red-500/20 hover:to-red-500/20 border border-gray-700/40 hover:border-red-500/60 flex items-center justify-center text-lg transition-all duration-300 hover:scale-110"
-              >
-                📹
-              </a>
-
-              {/* TikTok */}
-              <a
-                href="https://tiktok.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-gray-800/50 hover:bg-gradient-to-br hover:from-black/50 hover:to-gray-500/20 border border-gray-700/40 hover:border-white/60 flex items-center justify-center text-lg transition-all duration-300 hover:scale-110"
-              >
-                🎵
-              </a>
+            <h3 className="text-base font-bold text-white">Ikuti Kami</h3>
+            <div className="flex items-center gap-3 flex-wrap">
+              {[
+                {
+                  icon: "📷",
+                  href: "https://instagram.com/smkmuh1genteng",
+                  label: "Instagram",
+                  color: "hover:text-pink-400 hover:border-pink-500/40",
+                },
+                {
+                  icon: "📹",
+                  href: "https://youtube.com/@smkmuh1genteng",
+                  label: "YouTube",
+                  color: "hover:text-red-400 hover:border-red-500/40",
+                },
+                {
+                  icon: "💻",
+                  href: "https://github.com/smkmuh1genteng",
+                  label: "GitHub",
+                  color: "hover:text-gray-300 hover:border-gray-500/40",
+                },
+              ].map((social) => {
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className={`w-10 h-10 rounded-lg border border-gray-700/40 flex items-center justify-center text-lg transition-all duration-200 hover:scale-110 ${social.color}`}
+                  >
+                    {social.icon}
+                  </a>
+                );
+              })}
             </div>
           </div>
 
-          {/* --- MAP SECTION --- */}
-          <div className="relative z-10 mb-12">
-            <div className="flex flex-col gap-6">
-              {/* Map Section Header */}
-              <div className="flex flex-col gap-2">
-                <h3 className="text-lg font-bold text-white">
-                  📍 Kunjungi Kami
-                </h3>
-                <p className="text-sm text-gray-400">
-                  Lokasi SMKS Muhammadiyah 1 Genteng di Banyuwangi, Jawa Timur
-                </p>
-              </div>
-
-              {/* Map Container */}
-              <div className="group rounded-2xl overflow-hidden border border-gray-700/40 bg-gradient-to-br from-gray-900/40 to-transparent backdrop-blur-sm hover:border-emerald-500/60 transition-all duration-300">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.383968530149!2d114.37936!3d-8.192477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd15e3e0c8c8001%3A0x1234567890ab!2sSMKS%20Muhammadiyah%201%20Genteng!5e0!3m2!1sid!2sid!4v1234567890"
-                  width="100%"
-                  height="200"
-                  style={{ border: "none" }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="w-full"
-                ></iframe>
-              </div>
-            </div>
+          {/* --- PENTING COLUMN --- */}
+          <div className="flex flex-col gap-6">
+            <h3 className="text-base font-bold text-white">Penting</h3>
+            <ul className="flex flex-col gap-3">
+              {[
+                { label: "Privacy Policy", href: "#" },
+                { label: "Terms of Service", href: "#" },
+                { label: "Code of Conduct", href: "#" },
+                { label: "Contact Us", href: "mailto:rpl@smkmuh1genteng.sch.id" },
+              ].map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-gray-400 hover:text-[#00F5A0] transition-colors duration-200 flex items-center gap-1 group"
+                  >
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
+        </div>
+
+        {/* Divider */}
+        <div className="border-t border-gray-700/40 mb-8"></div>
+
+        {/* Footer Bottom */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          {/* Copyright Text */}
+          <div className="text-sm text-gray-400 text-center md:text-left">
+            <p>© {currentYear} SMKS Muhammadiyah 1 Genteng - Jurusan RPL.</p>
+            <p>All rights reserved. Developed with ❤️ by RPL Department.</p>
+          </div>
+
+          {/* Tagline */}
+          <p className="text-sm font-semibold bg-gradient-to-r from-[#00F5A0] via-[#4bf3ce] to-[#00D2FF] bg-clip-text text-transparent">
+            Good Skill, Good Attitude ✨
+          </p>
         </div>
       </div>
 
-      {/* Divider */}
-      <div className="relative z-10 border-t border-gray-700/40 mb-8"></div>
-
-      {/* Footer Bottom */}
-      <div className="relative z-10  py-6 text-center">
-        {/* Copyright Text */}
-        <p className="text-sm text-gray-400">
-          © 2026 SMKS Muhammadiyah 1 Genteng - Jurusan RPL. All rights reserved.
-        </p>
-
-        {/* Tagline */}
-        <p className="text-sm font-semibold text-transparent bg-gradient-to-r from-[#00F5A0] to-[#00D2FF] bg-clip-text">
-          Good Skill, Good Attitude.
-        </p>
-      </div>
+      {/* Bottom Border */}
+      <div className="relative z-10 border-t border-gray-800/40"></div>
     </footer>
   );
 };

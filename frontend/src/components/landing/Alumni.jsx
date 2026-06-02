@@ -1,15 +1,16 @@
 import { memo } from "react";
 import { ALUMNI } from "./landingData";
+import Reveal from "./Reveal";
 
 const Alumni = () => {
   return (
     <>
-      <section id="alumni" className="pt-24">
+      <section id="alumni" className="pt-24 scroll-mt-28">
         {/* Section Headers */}
-        <div className="flex flex-col items-center gap-3 mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-[#00F5A0] text-xs font-semibold tracking-wide">
+        <div className="flex flex-col items-center gap-3 mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-pink-500/40 bg-pink-500/10 text-pink-300 text-xs font-semibold tracking-wide">
             <svg
-              className="w-3.5 h-3.5"
+              className="w-4 h-4"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
@@ -17,396 +18,180 @@ const Alumni = () => {
             </svg>
             Success Stories
           </div>
-          <h3 className="text-4xl md:text-5xl font-extrabold text-center">
+          <h3 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center max-w-3xl">
             Alumni{" "}
-            <span className="bg-gradient-to-r from-[#00F5A0] to-[#00D2FF] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
               Hall of Fame
             </span>
           </h3>
-          <p className="text-center text-gray-400 text-base md:text-lg">
-            Kisah inspiratif dari alumni kami yang sukses berkari di industri
-            teknologi
+          <p className="text-center text-gray-400 text-base md:text-lg max-w-2xl">
+            Kisah inspiratif dari alumni kami yang sukses berkarir di industri teknologi terkemuka
           </p>
         </div>
 
         {/* Alumni Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Alumni Card 1 - Reza Pratama */}
-          <div className="group border border-emerald-500/40 rounded-2xl overflow-hidden bg-gradient-to-br from-emerald-500/5 to-transparent backdrop-blur-sm hover:border-emerald-500/60 hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 hover:scale-105">
-            {/* Image Container */}
-            <div className="relative h-48 bg-gradient-to-br from-emerald-500/20 to-transparent overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop"
-                alt="Reza Pratama"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-              />
-            </div>
+          {ALUMNI.map((alumnus, idx) => {
+            const colorMap = {
+              emerald: { border: "border-emerald-500/40", shadow: "shadow-emerald-500/20", text: "text-emerald-300", accent: "from-emerald-500/5" },
+              cyan: { border: "border-cyan-500/40", shadow: "shadow-cyan-500/20", text: "text-cyan-300", accent: "from-cyan-500/5" },
+              yellow: { border: "border-yellow-500/40", shadow: "shadow-yellow-500/20", text: "text-yellow-300", accent: "from-yellow-500/5" },
+              pink: { border: "border-pink-500/40", shadow: "shadow-pink-500/20", text: "text-pink-300", accent: "from-pink-500/5" },
+              blue: { border: "border-blue-500/40", shadow: "shadow-blue-500/20", text: "text-blue-300", accent: "from-blue-500/5" },
+              red: { border: "border-red-500/40", shadow: "shadow-red-500/20", text: "text-red-300", accent: "from-red-500/5" },
+            };
+            const colors = colorMap[alumnus.color] || colorMap.emerald;
 
-            {/* Content */}
-            <div className="p-6">
-              {/* Status Badge */}
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-3 h-3 bg-emerald-400 rounded-full"></div>
-                <span className="text-xs text-emerald-400 font-semibold">
-                  Class 2023
-                </span>
-              </div>
+            return (
+              <Reveal key={alumnus.name} delay={idx * 80}>
+                <div className={`group border ${colors.border} rounded-3xl overflow-hidden bg-gradient-to-br ${colors.accent} to-transparent backdrop-blur-sm hover:${colors.border} hover:shadow-lg hover:${colors.shadow} transition-all duration-300 hover:scale-105 h-full flex flex-col`}>
+                  {/* Image Container */}
+                  <div className="relative h-56 bg-gradient-to-br from-gray-800/50 to-transparent overflow-hidden">
+                    <img
+                      src={alumnus.image}
+                      alt={alumnus.name}
+                      className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    {/* Overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-300`} />
+                  </div>
 
-              {/* Name */}
-              <h4 className="text-lg font-bold text-white mb-1">
-                Reza Pratama
-              </h4>
+                  {/* Content */}
+                  <div className="p-6 md:p-7 flex flex-col flex-1">
+                    {/* Status Badge */}
+                    <div className={`flex items-center gap-2 mb-4 pb-4 border-b border-gray-700/40`}>
+                      <div className={`w-3 h-3 rounded-full`} style={{ backgroundColor: colors.border.split('-')[1] === 'emerald' ? '#10b981' : colors.border.split('-')[1] === 'cyan' ? '#06b6d4' : colors.border.split('-')[1] === 'yellow' ? '#fbbf24' : colors.border.split('-')[1] === 'pink' ? '#ec4899' : colors.border.split('-')[1] === 'blue' ? '#3b82f6' : '#ef4444' }}></div>
+                      <span className={`text-xs ${colors.text} font-semibold`}>
+                        {alumnus.class}
+                      </span>
+                    </div>
 
-              {/* Job Title */}
-              <p className="text-sm font-semibold text-emerald-300 mb-1">
-                Software Engineer
-              </p>
+                    {/* Name */}
+                    <h4 className={`text-xl md:text-2xl font-bold text-white mb-1 group-hover:${colors.text} transition-colors`}>
+                      {alumnus.name}
+                    </h4>
 
-              {/* Company */}
-              <p className="text-xs text-gray-400 mb-4 font-medium">Gojek</p>
+                    {/* Job Title */}
+                    <p className={`text-sm font-semibold ${colors.text} mb-1`}>
+                      {alumnus.role}
+                    </p>
 
-              {/* Description */}
-              <p className="text-sm text-gray-300 mb-6 leading-relaxed">
-                Dari siswa RPL hingga menjadi Software Engineer di perusahaan
-                unicorn. Pembelajaran berkelanjutan menjadi kunci kesuksesan.
-              </p>
+                    {/* Company */}
+                    <p className="text-sm text-gray-400 mb-4 font-medium flex items-center gap-1">
+                      <span>🏢</span>
+                      {alumnus.company}
+                    </p>
 
-              {/* Location */}
-              <div className="flex items-center gap-2 text-xs text-gray-400">
-                <span>📍</span>
-                <span>Jakarta</span>
-              </div>
-            </div>
-          </div>
+                    {/* Description */}
+                    <p className="text-sm text-gray-300 mb-6 leading-relaxed flex-1">
+                      {alumnus.description}
+                    </p>
 
-          {/* Alumni Card 2 - Siti Maharani */}
-          <div className="group border border-cyan-500/40 rounded-2xl overflow-hidden bg-gradient-to-br from-cyan-500/5 to-transparent backdrop-blur-sm hover:border-cyan-500/60 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 hover:scale-105">
-            {/* Image Container */}
-            <div className="relative h-48 bg-gradient-to-br from-cyan-500/20 to-transparent overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=300&fit=crop"
-                alt="Siti Maharani"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-
-            {/* Content */}
-            <div className="p-6">
-              {/* Status Badge */}
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
-                <span className="text-xs text-blue-400 font-semibold">
-                  Class 2022
-                </span>
-              </div>
-
-              {/* Name */}
-              <h4 className="text-lg font-bold text-white mb-1">
-                Siti Maharani
-              </h4>
-
-              {/* Job Title */}
-              <p className="text-sm font-semibold text-cyan-300 mb-1">
-                Frontend Developer
-              </p>
-
-              {/* Company */}
-              <p className="text-xs text-gray-400 mb-4 font-medium">
-                Tokopedia
-              </p>
-
-              {/* Description */}
-              <p className="text-sm text-gray-300 mb-6 leading-relaxed">
-                Menjelma sebagai developer ulung yang mengembangkan interface
-                commerce terbaik untuk user experience sempurna.
-              </p>
-
-              {/* Location */}
-              <div className="flex items-center gap-2 text-xs text-gray-400">
-                <span>📍</span>
-                <span>Jakarta</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Alumni Card 3 - Ahmad Fauzi */}
-          <div className="group border border-yellow-500/40 rounded-2xl overflow-hidden bg-gradient-to-br from-yellow-500/5 to-transparent backdrop-blur-sm hover:border-yellow-500/60 hover:shadow-lg hover:shadow-yellow-500/20 transition-all duration-300 hover:scale-105">
-            {/* Image Container */}
-            <div className="relative h-48 bg-gradient-to-br from-yellow-500/20 to-transparent overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=300&fit=crop"
-                alt="Ahmad Fauzi"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-
-            {/* Content */}
-            <div className="p-6">
-              {/* Status Badge */}
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                <span className="text-xs text-yellow-400 font-semibold">
-                  Now 2025
-                </span>
-              </div>
-
-              {/* Name */}
-              <h4 className="text-lg font-bold text-white mb-1">Ahmad Fauzi</h4>
-
-              {/* Job Title */}
-              <p className="text-sm font-semibold text-yellow-300 mb-1">
-                Data Engineer
-              </p>
-
-              {/* Company */}
-              <p className="text-xs text-gray-400 mb-4 font-medium">Grab</p>
-
-              {/* Description */}
-              <p className="text-sm text-gray-300 mb-6 leading-relaxed">
-                Menggunakan skill data engineering untuk mengoptimalkan pipeline
-                dan meningkatkan insights bisnis perusahaan.
-              </p>
-
-              {/* Location */}
-              <div className="flex items-center gap-2 text-xs text-gray-400">
-                <span>📍</span>
-                <span>Informatika - IFB</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Alumni Card 4 - Dewi Lestari */}
-          <div className="group border border-pink-500/40 rounded-2xl overflow-hidden bg-gradient-to-br from-pink-500/5 to-transparent backdrop-blur-sm hover:border-pink-500/60 hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300 hover:scale-105">
-            {/* Image Container */}
-            <div className="relative h-48 bg-gradient-to-br from-pink-500/20 to-transparent overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=300&fit=crop"
-                alt="Dewi Lestari"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-
-            {/* Content */}
-            <div className="p-6">
-              {/* Status Badge */}
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
-                <span className="text-xs text-orange-400 font-semibold">
-                  Class 2023
-                </span>
-              </div>
-
-              {/* Name */}
-              <h4 className="text-lg font-bold text-white mb-1">
-                Dewi Lestari
-              </h4>
-
-              {/* Job Title */}
-              <p className="text-sm font-semibold text-pink-300 mb-1">
-                Product Designer
-              </p>
-
-              {/* Company */}
-              <p className="text-xs text-gray-400 mb-4 font-medium">
-                Traveloka
-              </p>
-
-              {/* Description */}
-              <p className="text-sm text-gray-300 mb-6 leading-relaxed">
-                Dari siswa RPL menjadi product designer yang menciptakan
-                pengalaman pengguna terbaik dalam platform travel.
-              </p>
-
-              {/* Location */}
-              <div className="flex items-center gap-2 text-xs text-gray-400">
-                <span>📍</span>
-                <span>Jakarta</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Alumni Card 5 - Budi Setiawan */}
-          <div className="group border border-blue-500/40 rounded-2xl overflow-hidden bg-gradient-to-br from-blue-500/5 to-transparent backdrop-blur-sm hover:border-blue-500/60 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 hover:scale-105">
-            {/* Image Container */}
-            <div className="relative h-48 bg-gradient-to-br from-blue-500/20 to-transparent overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop"
-                alt="Budi Setiawan"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-
-            {/* Content */}
-            <div className="p-6">
-              {/* Status Badge */}
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
-                <span className="text-xs text-blue-400 font-semibold">
-                  Class 2021
-                </span>
-              </div>
-
-              {/* Name */}
-              <h4 className="text-lg font-bold text-white mb-1">
-                Budi Setiawan
-              </h4>
-
-              {/* Job Title */}
-              <p className="text-sm font-semibold text-blue-300 mb-1">
-                DevOps Engineer
-              </p>
-
-              {/* Company */}
-              <p className="text-xs text-gray-400 mb-4 font-medium">
-                Bukalapak
-              </p>
-
-              {/* Description */}
-              <p className="text-sm text-gray-300 mb-6 leading-relaxed">
-                Spesialis di cloud infrastructure dan automation, memastikan
-                platform beroperasi 24/7 dengan reliability tinggi.
-              </p>
-
-              {/* Location */}
-              <div className="flex items-center gap-2 text-xs text-gray-400">
-                <span>📍</span>
-                <span>Bandung</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Alumni Card 6 - Rina Kusuma */}
-          <div className="group border border-red-500/40 rounded-2xl overflow-hidden bg-gradient-to-br from-red-500/5 to-transparent backdrop-blur-sm hover:border-red-500/60 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 hover:scale-105">
-            {/* Image Container */}
-            <div className="relative h-48 bg-gradient-to-br from-red-500/20 to-transparent overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=300&fit=crop"
-                alt="Rina Kusuma"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-
-            {/* Content */}
-            <div className="p-6">
-              {/* Status Badge */}
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                <span className="text-xs text-red-400 font-semibold">
-                  Class 2022
-                </span>
-              </div>
-
-              {/* Name */}
-              <h4 className="text-lg font-bold text-white mb-1">Rina Kusuma</h4>
-
-              {/* Job Title */}
-              <p className="text-sm font-semibold text-red-300 mb-1">
-                Mobile Developer
-              </p>
-
-              {/* Company */}
-              <p className="text-xs text-gray-400 mb-4 font-medium">Blibli</p>
-
-              {/* Description */}
-              <p className="text-sm text-gray-300 mb-6 leading-relaxed">
-                Kuliah jadi terpanggil merancang dan mengembangkan aplikasi
-                mobile dengan 50+ downloads di Play Store.
-              </p>
-
-              {/* Location */}
-              <div className="flex items-center gap-2 text-xs text-gray-400">
-                <span>📍</span>
-                <span>Depok</span>
-              </div>
-            </div>
-          </div>
+                    {/* Location */}
+                    <div className="flex items-center gap-2 text-sm text-gray-400 pt-4 border-t border-gray-700/40">
+                      <span>📍</span>
+                      <span>{alumnus.location}</span>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            );
+          })}
         </div>
       </section>
 
-      <section id="whereTheAreNow" className="pt-24">
+      {/* Where They Are Now Section */}
+      <section id="whereTheAreNow" className="pt-24 scroll-mt-28">
         {/* Section Headers */}
-        <div className="flex flex-col items-center gap-3 mb-16">
-          <h3 className="text-4xl md:text-5xl font-extrabold text-center">
-            Where They Are{" "}
-            <span className="bg-gradient-to-r from-[#00F5A0] to-[#00D2FF] bg-clip-text text-transparent">
-              Now
-            </span>
-          </h3>
-        </div>
+        <Reveal>
+          <div className="flex flex-col items-center gap-3 mb-16">
+            <h3 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center max-w-3xl">
+              Alumni di<span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent"> Mana Saja</span>
+            </h3>
+            <p className="text-center text-gray-400 text-base md:text-lg max-w-2xl">
+              Jaringan global alumni kami di perusahaan-perusahaan terkemuka dan universitas ternama
+            </p>
+          </div>
+        </Reveal>
 
         {/* Main Container with Border */}
-        <div className="border border-gray-700/40 rounded-3xl p-8 md:p-12 bg-gradient-to-br from-gray-900/40 to-transparent backdrop-blur-sm">
-          {/* Grid Container */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Top Tech Companies Column */}
-            <div className="flex flex-col gap-8">
-              {/* Column Header */}
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center text-lg">
-                  💼
-                </div>
-                <h4 className="text-lg font-bold text-white">
-                  Top Tech Companies
-                </h4>
-              </div>
-
-              {/* Companies Grid */}
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  "Gojek",
-                  "Tokopedia",
-                  "Grab",
-                  "Shopee",
-                  "Traveloka",
-                  "Bukalapak",
-                  "Blibli",
-                  "OVO",
-                ].map((company, idx) => (
-                  <div
-                    key={`company-${idx}`}
-                    className="group border border-gray-700/40 rounded-xl px-4 py-3 bg-gradient-to-br from-gray-800/30 to-transparent hover:border-emerald-500/60 hover:bg-emerald-500/10 transition-all duration-300 hover:scale-105 cursor-pointer"
-                  >
-                    <p className="text-sm font-semibold text-gray-300 group-hover:text-emerald-300 transition-colors text-center">
-                      {company}
-                    </p>
+        <Reveal>
+          <div className="border border-gray-700/40 rounded-3xl p-8 md:p-12 bg-gradient-to-br from-gray-900/40 to-transparent backdrop-blur-sm hover:border-gray-600/60 transition-all duration-300">
+            {/* Grid Container */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+              {/* Top Tech Companies Column */}
+              <div className="flex flex-col gap-8">
+                {/* Column Header */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                    💼
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Universities Column */}
-            <div className="flex flex-col gap-8">
-              {/* Column Header */}
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-8 h-8 bg-cyan-500/20 rounded-lg flex items-center justify-center text-lg">
-                  🎓
+                  <h4 className="text-xl md:text-2xl font-bold text-white">
+                    Perusahaan Teknologi
+                  </h4>
                 </div>
-                <h4 className="text-lg font-bold text-white">Universities</h4>
+
+                {/* Companies Grid */}
+                <div className="grid grid-cols-2 gap-4">
+                  {[
+                    "Gojek",
+                    "Tokopedia",
+                    "Grab",
+                    "Shopee",
+                    "Traveloka",
+                    "Bukalapak",
+                    "Blibli",
+                    "OVO",
+                  ].map((company, idx) => (
+                    <div
+                      key={`company-${idx}`}
+                      className="group border border-gray-700/40 rounded-2xl px-4 py-4 bg-gradient-to-br from-gray-800/30 to-transparent hover:border-emerald-500/60 hover:bg-emerald-500/10 transition-all duration-300 hover:scale-110 cursor-default"
+                    >
+                      <p className="text-sm font-semibold text-gray-300 group-hover:text-emerald-300 transition-colors text-center">
+                        {company}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              {/* Universities Grid */}
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  "Institut Teknologi Bandung",
-                  "Universitas Indonesia",
-                  "Universitas Gadjah Mada",
-                  "Institut Teknologi Sepuluh Nopember",
-                  "Universitas Brawijaya",
-                  "Telkom University",
-                ].map((university, idx) => (
-                  <div
-                    key={`uni-${idx}`}
-                    className="group border border-gray-700/40 rounded-xl px-4 py-3 bg-gradient-to-br from-gray-800/30 to-transparent hover:border-cyan-500/60 hover:bg-cyan-500/10 transition-all duration-300 hover:scale-105 cursor-pointer"
-                  >
-                    <p className="text-sm font-semibold text-gray-300 group-hover:text-cyan-300 transition-colors text-center">
-                      {university}
-                    </p>
+              {/* Universities Column */}
+              <div className="flex flex-col gap-8">
+                {/* Column Header */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-cyan-500/20 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                    🎓
                   </div>
-                ))}
+                  <h4 className="text-xl md:text-2xl font-bold text-white">
+                    Universitas Ternama
+                  </h4>
+                </div>
+
+                {/* Universities Grid */}
+                <div className="grid grid-cols-2 gap-4">
+                  {[
+                    "Institut Teknologi Bandung",
+                    "Universitas Indonesia",
+                    "Universitas Gadjah Mada",
+                    "Institut Teknologi Sepuluh Nopember",
+                    "Universitas Brawijaya",
+                    "Telkom University",
+                  ].map((university, idx) => (
+                    <div
+                      key={`uni-${idx}`}
+                      className="group border border-gray-700/40 rounded-2xl px-4 py-4 bg-gradient-to-br from-gray-800/30 to-transparent hover:border-cyan-500/60 hover:bg-cyan-500/10 transition-all duration-300 hover:scale-110 cursor-default"
+                    >
+                      <p className="text-sm font-semibold text-gray-300 group-hover:text-cyan-300 transition-colors text-center">
+                        {university}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
     </>
   );
