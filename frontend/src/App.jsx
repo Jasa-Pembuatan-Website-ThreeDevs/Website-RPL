@@ -1,4 +1,5 @@
 import Depan from "./assets/pages/Depan";
+import Showcase from "./assets/pages/Showcase";
 import Login from "./components/Login";
 import { RegistrationPage } from "./components/Registration";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
@@ -14,6 +15,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Depan />} />
+      <Route path="/showcase" element={<Showcase />} />
       <Route path="/auth/v1/secure-login" element={<Login />} />
       <Route path="/student/register" element={<StudentRegister />} />
       <Route
