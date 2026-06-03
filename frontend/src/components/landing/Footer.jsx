@@ -162,7 +162,6 @@ const Footer = () => {
           {/* Copyright Text */}
           <div className="text-sm text-gray-400 text-center md:text-left">
             <p>© {currentYear} SMKS Muhammadiyah 1 Genteng - Jurusan RPL.</p>
-            <p>All rights reserved. Developed with ❤️ by RPL Department.</p>
           </div>
 
           {/* Tagline */}

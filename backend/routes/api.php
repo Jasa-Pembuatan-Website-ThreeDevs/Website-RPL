@@ -7,9 +7,11 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\DudikaController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\HallOfFameController;
 use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\StudentProjectController;
 use App\Http\Controllers\PublicApiController;
+use App\Http\Controllers\Api\PpdbApplicationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,9 +38,13 @@ Route::get('/posts/{slug}', [PostController::class, 'show']);
 Route::get('/teachers', [TeacherController::class, 'index']);
 Route::get('/galleries', [GalleryController::class, 'index']);
 Route::get('/partners', [DudikaController::class, 'index']);
+Route::get('/hall-of-fame', [HallOfFameController::class, 'index']);
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::get('/projects/{project:slug}', [ProjectController::class, 'show']);
 Route::post('/messages', [MessageController::class, 'store']);
+
+// PPDB form submission (public)
+Route::post('/ppdb', [PpdbApplicationController::class, 'store']);
 
 /**
  * Protected Routes (Student Dashboard & Admin Management)
@@ -63,6 +69,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('galleries', GalleryController::class)->except(['index']);
     Route::apiResource('projects', ProjectController::class)->except(['index', 'show']);
     Route::apiResource('partners', DudikaController::class)->except(['index']);
+    Route::apiResource('hall-of-fame', HallOfFameController::class)->except(['index']);
 
     // Message Management
     Route::get('/messages', [MessageController::class, 'index']);

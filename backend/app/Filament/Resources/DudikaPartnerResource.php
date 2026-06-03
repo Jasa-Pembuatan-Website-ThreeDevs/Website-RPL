@@ -36,6 +36,7 @@ class DudikaPartnerResource extends Resource
                         Forms\Components\FileUpload::make('logo_image')
                             ->image()
                             ->directory('partners')
+                                ->disk('public')
                             ->label('Company Logo'),
 
                         Forms\Components\Textarea::make('description')

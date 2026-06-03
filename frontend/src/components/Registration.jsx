@@ -15,21 +15,35 @@ export function RegistrationPage({ onNavigate }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
-    setIsSubmitted(true);
-
-    // Reset after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        fullName: "",
-        nisn: "",
-        schoolOrigin: "",
-        whatsapp: "",
-        reason: "",
+    // Submit to backend API
+    fetch('/api/ppdb', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then(async (res) => {
+        if (!res.ok) throw new Error('Submit failed');
+        return res.json();
+      })
+      .then(() => {
+        setIsSubmitted(true);
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({
+            fullName: "",
+            nisn: "",
+            schoolOrigin: "",
+            whatsapp: "",
+            reason: "",
+          });
+        }, 3000);
+      })
+      .catch((err) => {
+        console.error(err);
+        alert('Gagal mengirim pendaftaran. Silakan coba lagi.');
       });
-    }, 3000);
   };
 
   const handleChange = (e) => {

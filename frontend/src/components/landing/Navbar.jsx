@@ -5,12 +5,15 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { label: "Home", href: "#home" },
-    { label: "Philosophy", href: "#philosophy" },
-    { label: "Portfolio", href: "#portfolio" },
-    { label: "Tech Stack", href: "#tech-stack" },
-    { label: "Mitra", href: "#partners" },
-    { label: "Alumni", href: "#alumni" },
+    { label: "Home", to: "/#home" },
+    { label: "Philosophy", to: "/#philosophy" },
+    { label: "Portfolio", to: "/#portfolio" },
+    { label: "Tech Stack", to: "/#tech-stack" },
+    { label: "Mitra", to: "/partners" },
+    { label: "Berita", to: "/posts" },
+    { label: "Galeri", to: "/gallery" },
+    { label: "Guru", to: "/teachers" },
+    { label: "Alumni", to: "/#alumni" },
   ];
 
   return (
@@ -35,20 +38,26 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8 text-sm font-medium text-gray-300">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
+                to={item.to}
                 className="hover:text-[#00F5A0] hover:scale-105 transition-all duration-200 relative group"
               >
                 {item.label}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#00F5A0] to-[#00D2FF] group-hover:w-full transition-all duration-300" />
-              </a>
+              </Link>
             ))}
             <Link
               to="/auth/v1/secure-login"
               className="px-5 py-2.5 border border-gray-600/40 bg-gradient-to-br from-gray-900/40 to-gray-800/20 rounded-lg hover:border-[#00F5A0]/60 hover:bg-emerald-500/10 hover:text-[#00F5A0] transition-all duration-200 font-semibold"
             >
               Masuk
+            </Link>
+            <Link
+              to="/student/register"
+              className="ml-2 px-4 py-2.5 bg-gradient-to-r from-[#00F5A0] to-[#4bf3ce] text-black font-semibold rounded-lg hover:brightness-105 hover:scale-105 transition-all duration-200"
+            >
+              Daftar Akun
             </Link>
           </nav>
 
@@ -73,14 +82,14 @@ const Navbar = () => {
           <div className="lg:hidden mt-3 border border-gray-600/40 rounded-2xl px-6 py-4 bg-[#0A0E12]/95 backdrop-blur-xl shadow-lg shadow-emerald-500/5 animate-in fade-in slide-in-from-top-2 duration-200">
             <nav className="flex flex-col gap-3">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.label}
-                  href={item.href}
                   onClick={() => setIsMenuOpen(false)}
+                  to={item.to}
                   className="px-4 py-2.5 text-gray-300 hover:text-[#00F5A0] hover:bg-emerald-500/10 rounded-lg transition-all duration-200 font-medium"
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
               <Link
                 to="/auth/v1/secure-login"
@@ -88,6 +97,13 @@ const Navbar = () => {
                 className="px-4 py-2.5 border border-gray-600/40 bg-gradient-to-br from-gray-900/40 to-gray-800/20 rounded-lg text-white hover:border-[#00F5A0]/60 hover:bg-emerald-500/10 hover:text-[#00F5A0] transition-all duration-200 font-semibold"
               >
                 Masuk
+              </Link>
+              <Link
+                to="/student/register"
+                onClick={() => setIsMenuOpen(false)}
+                className="mt-2 px-4 py-2.5 bg-gradient-to-r from-[#00F5A0] to-[#4bf3ce] text-black font-semibold rounded-lg hover:brightness-105 hover:scale-105 transition-all duration-200 text-center"
+              >
+                Daftar Akun
               </Link>
             </nav>
           </div>

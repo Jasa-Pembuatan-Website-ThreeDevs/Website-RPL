@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { User, Link2 } from 'lucide-react';
 import { studentApi, storageUrl } from '../../lib/api';
+import { useToast } from '../../context/ToastContext';
 import { GlassCard, GlassInput, GlassTextarea, GlassSelect, GlassButton, AlertBanner } from '../ui/GlassCard';
 
 const emptyForm = {
@@ -20,6 +21,7 @@ export default function ProfileSection() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const { push } = useToast();
 
   useEffect(() => {
     loadProfile();
@@ -75,8 +77,10 @@ export default function ProfileSection() {
       await studentApi.updateProfile(fd);
       setSuccess('Profil berhasil disimpan.');
       setAvatarFile(null);
+      push('Profil berhasil disimpan.', { type: 'success' });
     } catch (err) {
       setError(err.message);
+      push(err.message || 'Gagal menyimpan profil.', { type: 'error' });
     } finally {
       setSaving(false);
     }
