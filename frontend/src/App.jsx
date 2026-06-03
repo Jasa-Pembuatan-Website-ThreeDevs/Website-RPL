@@ -22,6 +22,10 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<Depan />} />
       <Route path="/showcase" element={<Showcase />} />
+      <Route path="/teachers" element={<TeachersPage />} />
+      <Route path="/gallery" element={<GalleryPage />} />
+      <Route path="/posts" element={<PostsPage />} />
+      <Route path="/partners" element={<PartnersPage />} />
       <Route path="/auth/v1/secure-login" element={<Login />} />
       <Route path="/student/register" element={<StudentRegister />} />
       <Route
