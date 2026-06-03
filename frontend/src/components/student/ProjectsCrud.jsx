@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FolderKanban, Plus, Pencil, Trash2, ExternalLink } from 'lucide-react';
 import { studentApi, publicApi, storageUrl, buildProjectFormData } from '../../lib/api';
+import { useToast } from '../../context/ToastContext';
 import {
   GlassCard,
   GlassInput,
@@ -31,6 +32,7 @@ export default function ProjectsCrud() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const { push } = useToast();
 
   useEffect(() => {
     loadData();
@@ -106,14 +108,17 @@ export default function ProjectsCrud() {
       if (editing) {
         await studentApi.updateProject(editing.id, fd);
         setSuccess('Proyek berhasil diperbarui.');
+        push('Proyek berhasil diperbarui.', { type: 'success' });
       } else {
         await studentApi.createProject(fd);
         setSuccess('Proyek berhasil ditambahkan.');
+        push('Proyek berhasil ditambahkan.', { type: 'success' });
       }
       setModalOpen(false);
       await loadData();
     } catch (err) {
       setError(err.message);
+      push(err.message || 'Gagal menyimpan proyek.', { type: 'error' });
     } finally {
       setSaving(false);
     }
@@ -125,9 +130,11 @@ export default function ProjectsCrud() {
     try {
       await studentApi.deleteProject(id);
       setSuccess('Proyek dihapus.');
+      push('Proyek dihapus.', { type: 'success' });
       await loadData();
     } catch (err) {
       setError(err.message);
+      push(err.message || 'Gagal menghapus proyek.', { type: 'error' });
     }
   }
 

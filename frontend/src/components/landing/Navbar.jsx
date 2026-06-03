@@ -5,13 +5,15 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { label: "Home", href: "#home" },
-    { label: "Philosophy", href: "#philosophy" },
-    { label: "Portfolio", href: "#portfolio" },
-    { label: "Tech Stack", href: "#tech-stack" },
-    { label: "Mitra", href: "#partners" },
-    { label: "Alumni", href: "#alumni" },
-    { label: "Showcase", href: "/showcase", isRoute: true },
+    { label: "Home", to: "/#home" },
+    { label: "Philosophy", to: "/#philosophy" },
+    { label: "Portfolio", to: "/#portfolio" },
+    { label: "Tech Stack", to: "/#tech-stack" },
+    { label: "Mitra", to: "/partners" },
+    { label: "Berita", to: "/posts" },
+    { label: "Galeri", to: "/gallery" },
+    { label: "Guru", to: "/teachers" },
+    { label: "Alumni", to: "/#alumni" },
   ];
 
   return (
@@ -62,6 +64,12 @@ const Navbar = () => {
             >
               Masuk
             </Link>
+            <Link
+              to="/student/register"
+              className="ml-2 px-4 py-2.5 bg-gradient-to-r from-[#00F5A0] to-[#4bf3ce] text-black font-semibold rounded-lg hover:brightness-105 hover:scale-105 transition-all duration-200"
+            >
+              Daftar Akun
+            </Link>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -111,6 +119,13 @@ const Navbar = () => {
                 className="px-4 py-2.5 border border-gray-600/40 bg-gradient-to-br from-gray-900/40 to-gray-800/20 rounded-lg text-white hover:border-[#00F5A0]/60 hover:bg-emerald-500/10 hover:text-[#00F5A0] transition-all duration-200 font-semibold"
               >
                 Masuk
+              </Link>
+              <Link
+                to="/student/register"
+                onClick={() => setIsMenuOpen(false)}
+                className="mt-2 px-4 py-2.5 bg-gradient-to-r from-[#00F5A0] to-[#4bf3ce] text-black font-semibold rounded-lg hover:brightness-105 hover:scale-105 transition-all duration-200 text-center"
+              >
+                Daftar Akun
               </Link>
             </nav>
           </div>

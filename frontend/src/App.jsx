@@ -4,10 +4,16 @@ import Login from "./components/Login";
 import { RegistrationPage } from "./components/Registration";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import { ToastProvider } from "./context/ToastContext";
+import Toasts from "./components/ui/Toasts";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import StudentDashboard from "./pages/StudentDashboard";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import StudentRegister from "./pages/StudentRegister";
+import TeachersPage from "./pages/TeachersPage";
+import GalleryPage from "./pages/GalleryPage";
+import PostsPage from "./pages/PostsPage";
+import PartnersPage from "./pages/PartnersPage";
 
 function AppRoutes() {
   const navigate = useNavigate();
@@ -52,9 +58,12 @@ function AppRoutes() {
 function App() {
   return (
     <Router>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+        <Toasts />
+      </ToastProvider>
     </Router>
   );
 }

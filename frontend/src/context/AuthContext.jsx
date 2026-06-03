@@ -1,11 +1,13 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { authApi, setToken, setUser, getStoredUser } from '../lib/api';
+import { useToast } from './ToastContext';
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUserState] = useState(getStoredUser);
   const [loading, setLoading] = useState(true);
+  const { push } = useToast();
 
   useEffect(() => {
     setLoading(false);
@@ -16,6 +18,7 @@ export function AuthProvider({ children }) {
     setToken(data.token);
     setUser(data.user);
     setUserState(data.user);
+    push('Login berhasil.', { type: 'success' });
     return data.user;
   }, []);
 

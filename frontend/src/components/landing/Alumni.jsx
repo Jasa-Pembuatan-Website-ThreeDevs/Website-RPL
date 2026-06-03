@@ -1,8 +1,41 @@
-import { memo } from "react";
-import { ALUMNI } from "./landingData";
+import { memo, useEffect, useState } from "react";
+import { publicApi, resolveMediaUrl } from "../../lib/api";
+import { ALUMNI as FALLBACK_ALUMNI } from "./landingData";
 import Reveal from "./Reveal";
 
 const Alumni = () => {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    publicApi
+      .getHallOfFame()
+      .then((data) => {
+        const list = Array.isArray(data) ? data : [];
+        if (list.length > 0) {
+          setItems(
+            list.map((a) => ({
+              id: a.id,
+              name: a.name,
+              class: a.class_year || "",
+              role: a.role || "",
+              company: a.company || "",
+              location: a.location || "",
+              image: resolveMediaUrl(a.image_url) || "",
+              description: a.description || "",
+              color: a.color || "emerald",
+            }))
+          );
+        } else {
+          setItems(FALLBACK_ALUMNI);
+        }
+      })
+      .catch(() => setItems(FALLBACK_ALUMNI))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const listToRender = items;
+
   return (
     <>
       <section id="alumni" className="pt-24 scroll-mt-28">
@@ -31,7 +64,14 @@ const Alumni = () => {
 
         {/* Alumni Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {ALUMNI.map((alumnus, idx) => {
+          {loading
+            ? Array.from({ length: 6 }).map((_, i) => (
+                <div
+                  key={`alumni-skel-${i}`}
+                  className="border border-gray-700/40 rounded-3xl overflow-hidden bg-gradient-to-br from-gray-900/40 to-transparent backdrop-blur-sm h-[460px] animate-pulse"
+                />
+              ))
+            : listToRender.map((alumnus, idx) => {
             const colorMap = {
               emerald: { border: "border-emerald-500/40", shadow: "shadow-emerald-500/20", text: "text-emerald-300", accent: "from-emerald-500/5" },
               cyan: { border: "border-cyan-500/40", shadow: "shadow-cyan-500/20", text: "text-cyan-300", accent: "from-cyan-500/5" },
@@ -43,7 +83,7 @@ const Alumni = () => {
             const colors = colorMap[alumnus.color] || colorMap.emerald;
 
             return (
-              <Reveal key={alumnus.name} delay={idx * 80}>
+              <Reveal key={alumnus.id || alumnus.name} delay={idx * 80}>
                 <div className={`group border ${colors.border} rounded-3xl overflow-hidden bg-gradient-to-br ${colors.accent} to-transparent backdrop-blur-sm hover:${colors.border} hover:shadow-lg hover:${colors.shadow} transition-all duration-300 hover:scale-105 h-full flex flex-col`}>
                   {/* Image Container */}
                   <div className="relative h-56 bg-gradient-to-br from-gray-800/50 to-transparent overflow-hidden">
