@@ -5,15 +5,11 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { label: "Home", to: "/#home" },
-    { label: "Philosophy", to: "/#philosophy" },
-    { label: "Portfolio", to: "/#portfolio" },
-    { label: "Tech Stack", to: "/#tech-stack" },
+    { label: "Home", to: "/" },
     { label: "Mitra", to: "/partners" },
     { label: "Berita", to: "/posts" },
     { label: "Galeri", to: "/gallery" },
     { label: "Guru", to: "/teachers" },
-    { label: "Alumni", to: "/#alumni" },
     { label: "Showcase", to: "/showcase" },
   ];
 
