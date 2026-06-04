@@ -370,7 +370,7 @@ export function GalleryManager() {
             label: 'Preview',
             render: (r) =>
               resolveMediaUrl(r.image_url) ? (
-                <img src={resolveMediaUrl(r.image_url)} alt="" className="w-12 h-12 rounded object-cover" />
+                <img src={resolveMediaUrl(r.image_url)} alt="" className="w-12 h-12 rounded object-cover" loading="lazy" decoding="async" />
               ) : (
                 '-'
               ),
