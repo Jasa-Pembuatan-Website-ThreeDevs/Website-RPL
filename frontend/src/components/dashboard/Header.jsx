@@ -45,10 +45,12 @@ const Header = ({ setIsSidebarOpen }) => {
             <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Super Admin</p>
           </div>
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-slate-700 to-slate-800 border border-white/10 flex items-center justify-center overflow-hidden">
-            <img 
-              src="https://ui-avatars.com/api/?name=Admin+RPL&background=0D8ABC&color=fff" 
-              alt="Avatar" 
+            <img
+              src="https://ui-avatars.com/api/?name=Admin+RPL&background=0D8ABC&color=fff"
+              alt="Avatar"
               className="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
             />
           </div>
         </div>
