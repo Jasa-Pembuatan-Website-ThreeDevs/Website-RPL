@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
-import Depan from "./assets/pages/Depan";
-import Showcase from "./assets/pages/Showcase";
-import Login from "./components/Login";
-import { RegistrationPage } from "./components/Registration";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { ToastProvider } from "./context/ToastContext";
 import Toasts from "./components/ui/Toasts";
 import LoadingScreen from "./components/ui/LoadingScreen";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import StudentDashboard from "./pages/StudentDashboard";
-import AdminDashboardPage from "./pages/AdminDashboardPage";
-import StudentRegister from "./pages/StudentRegister";
-import TeachersPage from "./pages/TeachersPage";
-import GalleryPage from "./pages/GalleryPage";
-import PostsPage from "./pages/PostsPage";
-import PartnersPage from "./pages/PartnersPage";
+const Depan = lazy(() => import("./assets/pages/Depan"));
+const Showcase = lazy(() => import("./assets/pages/Showcase"));
+const Login = lazy(() => import("./components/Login"));
+const RegistrationPage = lazy(() => import("./components/Registration").then(mod => ({ default: mod.RegistrationPage })));
+const StudentDashboard = lazy(() => import("./pages/StudentDashboard"));
+const AdminDashboardPage = lazy(() => import("./pages/AdminDashboardPage"));
+const StudentRegister = lazy(() => import("./pages/StudentRegister"));
+const TeachersPage = lazy(() => import("./pages/TeachersPage"));
+const GalleryPage = lazy(() => import("./pages/GalleryPage"));
+const PostsPage = lazy(() => import("./pages/PostsPage"));
+const PartnersPage = lazy(() => import("./pages/PartnersPage"));
 
 function AppRoutes() {
   const navigate = useNavigate();
@@ -34,7 +34,8 @@ function AppRoutes() {
   return (
     <>
       {isLoading && <LoadingScreen />}
-      <Routes>
+      <Suspense fallback={<LoadingScreen />}>
+        <Routes>
         <Route path="/" element={<Depan />} />
         <Route path="/showcase" element={<Showcase />} />
         <Route path="/teachers" element={<TeachersPage />} />
@@ -70,7 +71,8 @@ function AppRoutes() {
             </ProtectedRoute>
           }
         />
-      </Routes>
+        </Routes>
+      </Suspense>
     </>
   );
 }

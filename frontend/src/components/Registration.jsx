@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GraduationCap, User, CreditCard, School, Phone, MessageSquare, Send, CheckCircle, ArrowLeft } from "lucide-react";
-import { motion } from "framer-motion";
 
 export function RegistrationPage({ onNavigate }) {
   const [formData, setFormData] = useState({
@@ -12,6 +11,17 @@ export function RegistrationPage({ onNavigate }) {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [Motion, setMotion] = useState(null);
+
+  useEffect(() => {
+    let mounted = true;
+    import("framer-motion").then((mod) => {
+      if (mounted) setMotion(mod.motion);
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -73,12 +83,7 @@ export function RegistrationPage({ onNavigate }) {
 
       {/* Main Content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center p-4 py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="w-full max-w-2xl"
-        >
+        <div className="w-full max-w-2xl">
           {/* Header */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-600 mb-6 shadow-[0_0_40px_rgba(99,102,241,0.4)]">
@@ -208,30 +213,34 @@ export function RegistrationPage({ onNavigate }) {
                 </p>
               </form>
             ) : (
-              // Success Message
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4 }}
-                className="text-center py-12"
-              >
-                <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 mb-6 shadow-[0_0_40px_rgba(74,222,128,0.5)]">
-                  <CheckCircle className="w-12 h-12 text-white" />
+              Motion ? (
+                <Motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4 }}
+                  className="text-center py-12"
+                >
+                  <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 mb-6 shadow-[0_0_40px_rgba(74,222,128,0.5)]">
+                    <CheckCircle className="w-12 h-12 text-white" />
+                  </div>
+                  <h2 className="text-3xl font-bold text-white mb-3">Pendaftaran Berhasil!</h2>
+                  <p className="text-gray-300 text-lg mb-6">Terima kasih telah mendaftar di Jurusan RPL.<br />Tim kami akan menghubungi Anda segera.</p>
+                  <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-xl p-4">
+                    <p className="text-indigo-400 font-semibold text-sm">Cek WhatsApp Anda untuk konfirmasi lebih lanjut</p>
+                  </div>
+                </Motion.div>
+              ) : (
+                <div className="text-center py-12">
+                  <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 mb-6 shadow-[0_0_40px_rgba(74,222,128,0.5)]">
+                    <CheckCircle className="w-12 h-12 text-white" />
+                  </div>
+                  <h2 className="text-3xl font-bold text-white mb-3">Pendaftaran Berhasil!</h2>
+                  <p className="text-gray-300 text-lg mb-6">Terima kasih telah mendaftar di Jurusan RPL.<br />Tim kami akan menghubungi Anda segera.</p>
+                  <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-xl p-4">
+                    <p className="text-indigo-400 font-semibold text-sm">Cek WhatsApp Anda untuk konfirmasi lebih lanjut</p>
+                  </div>
                 </div>
-                <h2 className="text-3xl font-bold text-white mb-3">
-                  Pendaftaran Berhasil!
-                </h2>
-                <p className="text-gray-300 text-lg mb-6">
-                  Terima kasih telah mendaftar di Jurusan RPL.
-                  <br />
-                  Tim kami akan menghubungi Anda segera.
-                </p>
-                <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-xl p-4">
-                  <p className="text-indigo-400 font-semibold text-sm">
-                    Cek WhatsApp Anda untuk konfirmasi lebih lanjut
-                  </p>
-                </div>
-              </motion.div>
+              )
             )}
           </div>
 
@@ -257,7 +266,7 @@ export function RegistrationPage({ onNavigate }) {
               </a>
             </p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
