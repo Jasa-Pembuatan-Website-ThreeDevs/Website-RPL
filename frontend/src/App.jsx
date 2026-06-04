@@ -16,6 +16,7 @@ const TeachersPage = lazy(() => import("./pages/TeachersPage"));
 const GalleryPage = lazy(() => import("./pages/GalleryPage"));
 const PostsPage = lazy(() => import("./pages/PostsPage"));
 const PartnersPage = lazy(() => import("./pages/PartnersPage"));
+const NotFound = lazy(() => import("./assets/pages/NotFound"));
 
 function AppRoutes() {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ function AppRoutes() {
       {isLoading && <LoadingScreen />}
       <Suspense fallback={<LoadingScreen />}>
         <Routes>
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Depan />} />
         <Route path="/showcase" element={<Showcase />} />
         <Route path="/teachers" element={<TeachersPage />} />
