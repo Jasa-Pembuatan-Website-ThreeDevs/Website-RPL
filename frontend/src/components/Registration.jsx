@@ -11,25 +11,13 @@ export function RegistrationPage({ onNavigate }) {
     reason: "",
   });
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission
     console.log("Form submitted:", formData);
-    setIsSubmitted(true);
-
-    // Reset after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        fullName: "",
-        nisn: "",
-        schoolOrigin: "",
-        whatsapp: "",
-        reason: "",
-      });
-    }, 3000);
+    
+    // Simulate API call and then navigate
+    onNavigate("/success-registration");
   };
 
   const handleChange = (e) => {
@@ -84,141 +72,114 @@ export function RegistrationPage({ onNavigate }) {
 
           {/* Registration Card */}
           <div className="backdrop-blur-2xl bg-white/10 border border-white/20 rounded-3xl p-8 md:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
-            {!isSubmitted ? (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Full Name */}
-                <div className="space-y-2">
-                  <label htmlFor="fullName" className="flex items-center gap-2 text-sm font-semibold text-white">
-                    <User className="w-4 h-4 text-indigo-400" />
-                    Nama Lengkap
-                  </label>
-                  <input
-                    id="fullName"
-                    name="fullName"
-                    type="text"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    placeholder="Masukkan nama lengkap"
-                    className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-4 text-white placeholder:text-gray-400 focus:outline-none focus:border-indigo-400/60 focus:bg-white/15 focus:ring-4 focus:ring-indigo-400/20 transition-all duration-300"
-                    required
-                  />
-                </div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Full Name */}
+              <div className="space-y-2">
+                <label htmlFor="fullName" className="flex items-center gap-2 text-sm font-semibold text-white">
+                  <User className="w-4 h-4 text-indigo-400" />
+                  Nama Lengkap
+                </label>
+                <input
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  placeholder="Masukkan nama lengkap"
+                  className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-4 text-white placeholder:text-gray-400 focus:outline-none focus:border-indigo-400/60 focus:bg-white/15 focus:ring-4 focus:ring-indigo-400/20 transition-all duration-300"
+                  required
+                />
+              </div>
 
-                {/* NISN */}
-                <div className="space-y-2">
-                  <label htmlFor="nisn" className="flex items-center gap-2 text-sm font-semibold text-white">
-                    <CreditCard className="w-4 h-4 text-indigo-400" />
-                    NISN (Nomor Induk Siswa Nasional)
-                  </label>
-                  <input
-                    id="nisn"
-                    name="nisn"
-                    type="number"
-                    value={formData.nisn}
-                    onChange={handleChange}
-                    placeholder="Masukkan NISN"
-                    className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-4 text-white placeholder:text-gray-400 focus:outline-none focus:border-indigo-400/60 focus:bg-white/15 focus:ring-4 focus:ring-indigo-400/20 transition-all duration-300"
-                    required
-                  />
-                </div>
+              {/* NISN */}
+              <div className="space-y-2">
+                <label htmlFor="nisn" className="flex items-center gap-2 text-sm font-semibold text-white">
+                  <CreditCard className="w-4 h-4 text-indigo-400" />
+                  NISN (Nomor Induk Siswa Nasional)
+                </label>
+                <input
+                  id="nisn"
+                  name="nisn"
+                  type="number"
+                  value={formData.nisn}
+                  onChange={handleChange}
+                  placeholder="Masukkan NISN"
+                  className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-4 text-white placeholder:text-gray-400 focus:outline-none focus:border-indigo-400/60 focus:bg-white/15 focus:ring-4 focus:ring-indigo-400/20 transition-all duration-300"
+                  required
+                />
+              </div>
 
-                {/* School Origin */}
-                <div className="space-y-2">
-                  <label htmlFor="schoolOrigin" className="flex items-center gap-2 text-sm font-semibold text-white">
-                    <School className="w-4 h-4 text-indigo-400" />
-                    Asal SMP/MTs
-                  </label>
-                  <input
-                    id="schoolOrigin"
-                    name="schoolOrigin"
-                    type="text"
-                    value={formData.schoolOrigin}
-                    onChange={handleChange}
-                    placeholder="Masukkan asal sekolah"
-                    className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-4 text-white placeholder:text-gray-400 focus:outline-none focus:border-indigo-400/60 focus:bg-white/15 focus:ring-4 focus:ring-indigo-400/20 transition-all duration-300"
-                    required
-                  />
-                </div>
+              {/* School Origin */}
+              <div className="space-y-2">
+                <label htmlFor="schoolOrigin" className="flex items-center gap-2 text-sm font-semibold text-white">
+                  <School className="w-4 h-4 text-indigo-400" />
+                  Asal SMP/MTs
+                </label>
+                <input
+                  id="schoolOrigin"
+                  name="schoolOrigin"
+                  type="text"
+                  value={formData.schoolOrigin}
+                  onChange={handleChange}
+                  placeholder="Masukkan asal sekolah"
+                  className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-4 text-white placeholder:text-gray-400 focus:outline-none focus:border-indigo-400/60 focus:bg-white/15 focus:ring-4 focus:ring-indigo-400/20 transition-all duration-300"
+                  required
+                />
+              </div>
 
-                {/* WhatsApp Number */}
-                <div className="space-y-2">
-                  <label htmlFor="whatsapp" className="flex items-center gap-2 text-sm font-semibold text-white">
-                    <Phone className="w-4 h-4 text-indigo-400" />
-                    Nomor WhatsApp
-                  </label>
-                  <input
-                    id="whatsapp"
-                    name="whatsapp"
-                    type="tel"
-                    value={formData.whatsapp}
-                    onChange={handleChange}
-                    placeholder="Contoh: 081234567890"
-                    className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-4 text-white placeholder:text-gray-400 focus:outline-none focus:border-indigo-400/60 focus:bg-white/15 focus:ring-4 focus:ring-indigo-400/20 transition-all duration-300"
-                    required
-                  />
-                </div>
+              {/* WhatsApp Number */}
+              <div className="space-y-2">
+                <label htmlFor="whatsapp" className="flex items-center gap-2 text-sm font-semibold text-white">
+                  <Phone className="w-4 h-4 text-indigo-400" />
+                  Nomor WhatsApp
+                </label>
+                <input
+                  id="whatsapp"
+                  name="whatsapp"
+                  type="tel"
+                  value={formData.whatsapp}
+                  onChange={handleChange}
+                  placeholder="Contoh: 081234567890"
+                  className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-4 text-white placeholder:text-gray-400 focus:outline-none focus:border-indigo-400/60 focus:bg-white/15 focus:ring-4 focus:ring-indigo-400/20 transition-all duration-300"
+                  required
+                />
+              </div>
 
-                {/* Reason */}
-                <div className="space-y-2">
-                  <label htmlFor="reason" className="flex items-center gap-2 text-sm font-semibold text-white">
-                    <MessageSquare className="w-4 h-4 text-indigo-400" />
-                    Alasan Bergabung di Jurusan RPL
-                  </label>
-                  <textarea
-                    id="reason"
-                    name="reason"
-                    value={formData.reason}
-                    onChange={handleChange}
-                    placeholder="Ceritakan alasan dan motivasi Anda untuk bergabung di jurusan RPL..."
-                    rows={5}
-                    className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-4 text-white placeholder:text-gray-400 focus:outline-none focus:border-indigo-400/60 focus:bg-white/15 focus:ring-4 focus:ring-indigo-400/20 transition-all duration-300 resize-none"
-                    required
-                  />
-                </div>
+              {/* Reason */}
+              <div className="space-y-2">
+                <label htmlFor="reason" className="flex items-center gap-2 text-sm font-semibold text-white">
+                  <MessageSquare className="w-4 h-4 text-indigo-400" />
+                  Alasan Bergabung di Jurusan RPL
+                </label>
+                <textarea
+                  id="reason"
+                  name="reason"
+                  value={formData.reason}
+                  onChange={handleChange}
+                  placeholder="Ceritakan alasan dan motivasi Anda untuk bergabung di jurusan RPL..."
+                  rows={5}
+                  className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-4 text-white placeholder:text-gray-400 focus:outline-none focus:border-indigo-400/60 focus:bg-white/15 focus:ring-4 focus:ring-indigo-400/20 transition-all duration-300 resize-none"
+                  required
+                />
+              </div>
 
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  className="group w-full bg-gradient-to-r from-indigo-500 to-blue-600 text-white font-bold py-5 rounded-xl hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(99,102,241,0.6)] transition-all duration-300 flex items-center justify-center gap-3"
-                >
-                  <span className="text-lg">Daftar Sekarang</span>
-                  <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                </button>
-
-                {/* Info Text */}
-                <p className="text-center text-gray-300 text-sm mt-6">
-                  Data yang Anda masukkan akan diproses oleh panitia PPDB.
-                  <br />
-                  Pastikan semua informasi yang diberikan adalah{" "}
-                  <span className="text-indigo-400 font-semibold">valid dan benar</span>.
-                </p>
-              </form>
-            ) : (
-              // Success Message
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4 }}
-                className="text-center py-12"
+              {/* Submit Button */}
+              <button
+                type="submit"
+                className="group w-full bg-gradient-to-r from-indigo-500 to-blue-600 text-white font-bold py-5 rounded-xl hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(99,102,241,0.6)] transition-all duration-300 flex items-center justify-center gap-3"
               >
-                <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 mb-6 shadow-[0_0_40px_rgba(74,222,128,0.5)]">
-                  <CheckCircle className="w-12 h-12 text-white" />
-                </div>
-                <h2 className="text-3xl font-bold text-white mb-3">
-                  Pendaftaran Berhasil!
-                </h2>
-                <p className="text-gray-300 text-lg mb-6">
-                  Terima kasih telah mendaftar di Jurusan RPL.
-                  <br />
-                  Tim kami akan menghubungi Anda segera.
-                </p>
-                <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-xl p-4">
-                  <p className="text-indigo-400 font-semibold text-sm">
-                    Cek WhatsApp Anda untuk konfirmasi lebih lanjut
-                  </p>
-                </div>
-              </motion.div>
-            )}
+                <span className="text-lg">Daftar Sekarang</span>
+                <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+              </button>
+
+              {/* Info Text */}
+              <p className="text-center text-gray-300 text-sm mt-6">
+                Data yang Anda masukkan akan diproses oleh panitia PPDB.
+                <br />
+                Pastikan semua informasi yang diberikan adalah{" "}
+                <span className="text-indigo-400 font-semibold">valid dan benar</span>.
+              </p>
+            </form>
           </div>
 
           {/* Additional Info */}

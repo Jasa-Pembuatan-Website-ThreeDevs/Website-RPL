@@ -20,7 +20,7 @@ const Footer = () => {
                 SM
               </div>
               <div>
-                <h4 className="text-sm font-bold text-white">SMK Muhammadiyah</h4>
+                <h4 className="text-sm font-bold text-white">SMKS Muhammadiyah 1 Genteng</h4>
                 <p className="text-[11px] text-[#00F5A0] font-semibold mt-0.5">RPL Department</p>
               </div>
             </div>

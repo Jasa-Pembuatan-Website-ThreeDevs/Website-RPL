@@ -7,6 +7,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import StudentDashboard from "./pages/StudentDashboard";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import StudentRegister from "./pages/StudentRegister";
+import Maintenance from "./pages/Maintenance";
 
 function AppRoutes() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Depan />} />
+      <Route path="/maintenance" element={<Maintenance />} />
       <Route path="/auth/v1/secure-login" element={<Login />} />
       <Route path="/student/register" element={<StudentRegister />} />
       <Route
