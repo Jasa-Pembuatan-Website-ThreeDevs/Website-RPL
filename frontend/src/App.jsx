@@ -19,6 +19,7 @@ const GalleryPage = lazy(() => import("./pages/GalleryPage"));
 const PostsPage = lazy(() => import("./pages/PostsPage"));
 const PartnersPage = lazy(() => import("./pages/PartnersPage"));
 const NotFound = lazy(() => import("./assets/pages/NotFound"));
+const MaintenancePage = lazy(() => import("./pages/MaintenancePage"));
 
 function AppRoutes({ isBackendMaintenance }) {
   const navigate = useNavigate();
@@ -52,43 +53,43 @@ function AppRoutes({ isBackendMaintenance }) {
       {isLoading && <LoadingScreen />}
       <Suspense fallback={<LoadingScreen />}>
         <Routes>
-        <Route path="*" element={<NotFound />} />
-        <Route path="/" element={<Depan />} />
-        <Route path="/maintenance" element={<MaintenancePage />} />
-        <Route path="/showcase" element={<Showcase />} />
-        <Route path="/teachers" element={<TeachersPage />} />
-        <Route path="/gallery" element={<GalleryPage />} />
-        <Route path="/posts" element={<PostsPage />} />
-        <Route path="/partners" element={<PartnersPage />} />
-        <Route path="/auth/v1/secure-login" element={<Login />} />
-        <Route path="/student/register" element={<StudentRegister />} />
-        <Route
-          path="/register"
-          element={
-            <RegistrationPage
-              onNavigate={(page) => {
-                if (page === "landing") navigate("/");
-                else navigate(page);
-              }}
-            />
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute role="student">
-              <StudentDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute role="admin">
-              <AdminDashboardPage />
-            </ProtectedRoute>
-          }
-        />
+          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<Depan />} />
+          <Route path="/maintenance" element={<MaintenancePage />} />
+          <Route path="/showcase" element={<Showcase />} />
+          <Route path="/teachers" element={<TeachersPage />} />
+          <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/posts" element={<PostsPage />} />
+          <Route path="/partners" element={<PartnersPage />} />
+          <Route path="/auth/v1/secure-login" element={<Login />} />
+          <Route path="/student/register" element={<StudentRegister />} />
+          <Route
+            path="/register"
+            element={
+              <RegistrationPage
+                onNavigate={(page) => {
+                  if (page === "landing") navigate("/");
+                  else navigate(page);
+                }}
+              />
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute role="student">
+                <StudentDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminDashboardPage />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Suspense>
     </>
