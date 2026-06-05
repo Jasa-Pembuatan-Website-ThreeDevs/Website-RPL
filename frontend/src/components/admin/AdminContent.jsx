@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Plus, Pencil, Trash2, Eye } from 'lucide-react';
-import { cmsApi } from '../../lib/api';
+import { cmsApi, resolveMediaUrl } from '../../lib/api';
 import {
   GlassCard,
   GlassInput,
@@ -369,8 +369,8 @@ export function GalleryManager() {
             key: 'image_url',
             label: 'Preview',
             render: (r) =>
-              r.image_url ? (
-                <img src={r.image_url} alt="" className="w-12 h-12 rounded object-cover" />
+              resolveMediaUrl(r.image_url) ? (
+                <img src={resolveMediaUrl(r.image_url)} alt="" className="w-12 h-12 rounded object-cover" loading="lazy" decoding="async" />
               ) : (
                 '-'
               ),

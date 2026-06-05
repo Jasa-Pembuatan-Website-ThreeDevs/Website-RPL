@@ -3,9 +3,59 @@ const STORAGE_URL = import.meta.env.VITE_STORAGE_URL ?? '';
 
 export function storageUrl(path) {
   if (!path) return null;
-  if (path.startsWith('http')) return path;
-  const base = STORAGE_URL || (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:8000');
-  return `${base}/storage/${path.replace(/^\//, '')}`;
+  const normalized = String(path).trim().replace(/\\/g, '/');
+  if (!normalized) return null;
+
+  if (normalized.startsWith('http://') || normalized.startsWith('https://')) {
+    return resolveMediaUrl(normalized);
+  }
+
+  if (normalized.startsWith('/storage/')) {
+    return normalized;
+  }
+
+  const base =
+    STORAGE_URL ||
+    (typeof window !== 'undefined' ? window.location.origin : 'http://127.0.0.1:8000');
+
+  const cleanPath = normalized.replace(/^\/?storage\//, '');
+  return `${base.replace(/\/$/, '')}/storage/${cleanPath}`;
+}
+
+/**
+ * Normalize API media URLs so images load via Vite /storage proxy in dev.
+ */
+export function resolveMediaUrl(urlOrPath) {
+  if (urlOrPath === null || urlOrPath === undefined) return null;
+
+  const value = String(urlOrPath).trim();
+  if (!value) return null;
+
+  if (value.startsWith('//')) {
+    return `${typeof window !== 'undefined' ? window.location.protocol : 'https:'}${value}`;
+  }
+
+  if (value.startsWith('/storage/')) {
+    return value;
+  }
+
+  if (value.startsWith('storage/')) {
+    return `/${value}`;
+  }
+
+  try {
+    const parsed = new URL(value, typeof window !== 'undefined' ? window.location.origin : 'http://127.0.0.1:8000');
+    if (parsed.pathname.startsWith('/storage/')) {
+      return `${parsed.pathname}${parsed.search}`;
+    }
+    if (value.startsWith('http://') || value.startsWith('https://')) {
+      return value;
+    }
+  } catch {
+    /* relative path below */
+  }
+
+  return storageUrl(value);
 }
 
 function getToken() {
@@ -48,6 +98,11 @@ function getErrorMessage(json) {
 }
 
 async function parseResponse(res) {
+  // If backend is in maintenance mode, Laravel returns 503
+  if (res.status === 503) {
+    window.dispatchEvent(new CustomEvent('maintenance-mode', { detail: true }));
+  }
+
   const json = await res.json().catch(() => ({}));
   if (!res.ok) {
     throw new Error(getErrorMessage(json));
@@ -125,6 +180,16 @@ export const publicApi = {
     return apiRequest(`/public/projects${qs ? `?${qs}` : ''}`, { auth: false });
   },
   getPartners: () => apiRequest('/partners', { auth: false }),
+  getTeachers: () => apiRequest('/teachers', { auth: false }),
+  getGalleries: () => apiRequest('/galleries', { auth: false }),
+  getPosts: (params = {}) => {
+    const qs = new URLSearchParams(params).toString();
+    return apiRequest(`/posts${qs ? `?${qs}` : ''}`, { auth: false });
+  },
+  getHallOfFame: (params = {}) => {
+    const qs = new URLSearchParams(params).toString();
+    return apiRequest(`/hall-of-fame${qs ? `?${qs}` : ''}`, { auth: false });
+  },
 };
 
 // ——— CMS (protected) ———
@@ -160,6 +225,15 @@ export const cmsApi = {
   createPartner: (body) => apiRequest('/partners', { method: 'POST', body }),
   updatePartner: (id, body) => apiRequest(`/partners/${id}`, { method: 'PUT', body }),
   deletePartner: (id) => apiRequest(`/partners/${id}`, { method: 'DELETE' }),
+
+  getHallOfFame: () => apiRequest('/hall-of-fame', { auth: false }),
+  createHallOfFame: (formData) =>
+    apiRequest('/hall-of-fame', { method: 'POST', body: formData, isFormData: true }),
+  updateHallOfFame: (id, formData) => {
+    if (!formData.has('_method')) formData.append('_method', 'PUT');
+    return apiRequest(`/hall-of-fame/${id}`, { method: 'POST', body: formData, isFormData: true });
+  },
+  deleteHallOfFame: (id) => apiRequest(`/hall-of-fame/${id}`, { method: 'DELETE' }),
 
   getMessages: () => apiRequest('/messages'),
   getMessage: (id) => apiRequest(`/messages/${id}`),

@@ -48,40 +48,44 @@
   }
 }
 
-@layer base {
-  body {
-    @apply bg-[#0A0E12] text-white antialiased;
-  }
+@utility text-glow {
+  text-shadow: 0 0 10px rgba(0, 245, 160, 0.5);
 }
 
-/* Custom Utilities if needed */
-@layer utilities {
-  .text-glow {
-    text-shadow: 0 0 10px rgba(0, 245, 160, 0.5);
-  }
+@utility animate-float {
+  animation: float 7s ease-in-out infinite;
+}
 
-  .animate-float {
-    animation: float 7s ease-in-out infinite;
-  }
+@utility animate-glow-pulse {
+  animation: glow-pulse 6s ease-in-out infinite;
+}
 
-  .animate-glow-pulse {
-    animation: glow-pulse 6s ease-in-out infinite;
-  }
+@utility hero-enter {
+  animation: fade-in-up 0.8s ease-out both;
+}
 
-  .hero-enter {
-    animation: fade-in-up 0.8s ease-out both;
-  }
+@utility hero-enter-delay-1 {
+  animation: fade-in-up 0.8s ease-out 0.12s both;
+}
 
-  .hero-enter-delay-1 {
-    animation: fade-in-up 0.8s ease-out 0.12s both;
-  }
+@utility hero-enter-delay-2 {
+  animation: fade-in-up 0.8s ease-out 0.24s both;
+}
 
-  .hero-enter-delay-2 {
-    animation: fade-in-up 0.8s ease-out 0.24s both;
-  }
+@utility hero-enter-delay-3 {
+  animation: fade-in-up 0.8s ease-out 0.36s both;
+}
 
-  .hero-enter-delay-3 {
-    animation: fade-in-up 0.8s ease-out 0.36s both;
+@utility hero-enter-delay-4 {
+  animation: fade-in-up 0.8s ease-out 0.48s both;
+}
+
+@layer base {
+  body {
+    background-color: #0A0E12;
+    color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 

@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Support\MediaUrl;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
 
 class DudikaResource extends JsonResource
 {
@@ -30,14 +30,6 @@ class DudikaResource extends JsonResource
 
     private function resolveLogoUrl(): ?string
     {
-        if (!$this->logo_image) {
-            return null;
-        }
-
-        if (str_starts_with($this->logo_image, 'http://') || str_starts_with($this->logo_image, 'https://')) {
-            return $this->logo_image;
-        }
-
-        return asset(Storage::url($this->logo_image));
+        return MediaUrl::fromPath($this->logo_image);
     }
 }

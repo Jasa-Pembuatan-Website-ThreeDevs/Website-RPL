@@ -6,10 +6,31 @@ import { publicApi } from '../../lib/api';
 import { PARTNERS as FALLBACK_PARTNERS } from './landingData';
 import { normalizePartner, ensureMarqueeItems } from '../../utils/partnerHelpers';
 
+const makeInitials = (name) => {
+  if (!name) return 'M';
+  return name
+    .split(' ')
+    .map((s) => s[0]?.toUpperCase() || '')
+    .slice(0, 2)
+    .join('');
+};
+
+const makeFallbackDataUrl = (label, bg) => {
+  const size = 140;
+  const initials = makeInitials(label);
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${size}' height='${size}' viewBox='0 0 ${size} ${size}'>` +
+    `<rect width='100%' height='100%' fill='${bg.replace(/'/g, '%27')}' rx='20'/>` +
+    `<text x='50%' y='55%' font-family='Inter, Roboto, Arial, sans-serif' font-size='52' fill='white' text-anchor='middle' dominant-baseline='middle' font-weight='700'>${initials}</text>` +
+    `</svg>`;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+};
+
 function PartnerCard({ partner }) {
+  const fallbackSrc = makeFallbackDataUrl(partner.name, partner.color || '#0ea5a4');
+
   const content = (
     <div
-      className="flex flex-col items-center justify-center gap-3 px-6 py-6 rounded-2xl border border-gray-700/40 bg-gradient-to-br from-gray-900/40 to-transparent backdrop-blur-sm hover:border-gray-600/60 hover:bg-gray-900/60 transition-all duration-300 whitespace-nowrap flex-shrink-0 min-w-[200px] max-w-[240px] hover:scale-[1.03] cursor-default"
+      className="flex flex-col items-center justify-center gap-3 px-6 py-6 rounded-2xl border border-gray-700/40 bg-gradient-to-br from-gray-900/40 to-transparent backdrop-blur-sm hover:border-gray-600/60 hover:bg-gray-900/60 transition-all duration-300 flex-shrink-0 min-w-[220px] max-w-[260px] hover:scale-[1.03] cursor-default"
       style={{
         borderColor: `${partner.color}40`,
         backgroundImage: `linear-gradient(135deg, ${partner.color}08, transparent)`,
@@ -19,17 +40,19 @@ function PartnerCard({ partner }) {
         className="w-14 h-14 rounded-xl flex items-center justify-center overflow-hidden font-bold text-lg"
         style={{ backgroundColor: `${partner.color}20` }}
       >
-        {partner.logo ? (
-          <img
-            src={partner.logo}
-            alt={partner.name}
-            className="w-full h-full object-contain p-1"
-            loading="lazy"
-            decoding="async"
-          />
-        ) : (
-          <span style={{ color: partner.color }}>{partner.icon}</span>
-        )}
+        <img
+          src={partner.logo || fallbackSrc}
+          alt={partner.name}
+          className="w-full h-full object-contain p-1"
+          loading="lazy"
+          decoding="async"
+          onError={(e) => {
+            if (!e.currentTarget.dataset.fallback) {
+              e.currentTarget.dataset.fallback = '1';
+              e.currentTarget.src = fallbackSrc;
+            }
+          }}
+        />
       </div>
       <div className="text-center">
         <div className="text-sm font-bold text-white">{partner.name}</div>
@@ -210,9 +233,11 @@ const Partners = () => {
             </h4>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {featured.map((partner, i) => (
-              <Reveal key={partner.id} delay={i * 100}>
-                <div
+            {featured.map((partner, i) => {
+              const fsrc = makeFallbackDataUrl(partner.name, partner.color || '#0ea5a4');
+              return (
+                <Reveal key={partner.id} delay={i * 100}>
+                  <div
                   className="border rounded-3xl p-8 bg-gradient-to-br from-gray-900/50 to-gray-900/20 backdrop-blur-sm hover:shadow-xl hover:scale-105 transition-all duration-300 h-full group/card"
                   style={{ borderColor: `${partner.color}40` }}
                 >
@@ -221,13 +246,18 @@ const Partners = () => {
                       className="w-16 h-16 rounded-2xl flex items-center justify-center overflow-hidden font-bold text-2xl flex-shrink-0 group-hover/card:scale-110 transition-transform duration-300"
                       style={{ backgroundColor: `${partner.color}25` }}
                     >
-                      {partner.logo ? (
-                        <img src={partner.logo} alt={partner.name} className="w-full h-full object-contain p-2" loading="lazy" />
-                      ) : (
-                        <span style={{ color: partner.color }}>
-                          {partner.icon}
-                        </span>
-                      )}
+                      <img
+                        src={partner.logo || fsrc}
+                        alt={partner.name}
+                        className="w-full h-full object-contain p-2"
+                        loading="lazy"
+                        onError={(e) => {
+                          if (!e.currentTarget.dataset.fallback) {
+                            e.currentTarget.dataset.fallback = '1';
+                            e.currentTarget.src = fsrc;
+                          }
+                        }}
+                      />
                     </div>
                     <div>
                       <h4 className="text-lg font-bold text-white group-hover/card:text-cyan-300 transition-colors">{partner.name}</h4>
@@ -255,7 +285,7 @@ const Partners = () => {
                   )}
                 </div>
               </Reveal>
-            ))}
+            )})}            
           </div>
         </div>
       )}

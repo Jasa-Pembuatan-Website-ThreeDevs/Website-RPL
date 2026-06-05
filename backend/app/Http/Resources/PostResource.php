@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Support\MediaUrl;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
 
 class PostResource extends JsonResource
 {
@@ -18,7 +18,7 @@ class PostResource extends JsonResource
             'title' => $this->title,
             'slug' => $this->slug,
             'content' => $this->content,
-            'image_url' => $this->image_path ? asset(Storage::url($this->image_path)) : null,
+            'image_url' => MediaUrl::fromPath($this->image_path),
             'is_published' => (bool) $this->is_published,
             'author' => $this->whenLoaded('user', function() {
                 return [
