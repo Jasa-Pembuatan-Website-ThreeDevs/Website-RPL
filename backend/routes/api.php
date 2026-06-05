@@ -23,8 +23,8 @@ use Illuminate\Support\Facades\Route;
 /**
  * Authentication Routes
  */
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::middleware('throttle:register')->post('/register', [AuthController::class, 'register']);
+Route::middleware('throttle:login')->post('/login', [AuthController::class, 'login']);
 
 /**
  * Public Routes (Frontend Showcase)

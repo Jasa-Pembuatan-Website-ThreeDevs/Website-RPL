@@ -98,6 +98,11 @@ function getErrorMessage(json) {
 }
 
 async function parseResponse(res) {
+  // If backend is in maintenance mode, Laravel returns 503
+  if (res.status === 503) {
+    window.dispatchEvent(new CustomEvent('maintenance-mode', { detail: true }));
+  }
+
   const json = await res.json().catch(() => ({}));
   if (!res.ok) {
     throw new Error(getErrorMessage(json));
