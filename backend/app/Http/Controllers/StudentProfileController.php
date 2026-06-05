@@ -33,7 +33,7 @@ class StudentProfileController extends Controller
         $user = $request->user();
 
         $validator = Validator::make($request->all(), [
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'grade_level' => 'required|in:10,11,12',
             'specialty' => 'required|string|max:255',
             'github_url' => 'nullable|url|max:255',
