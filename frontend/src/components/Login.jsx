@@ -40,7 +40,7 @@ const Login = () => {
             SM
           </div>
           <div className="text-left">
-            <p className="text-sm font-bold text-white">SMK Muhammadiyah</p>
+            <p className="text-sm font-bold text-white">SMKS Muhammadiyah 1 genteng</p>
             <p className="text-[11px] text-[#00F5A0] font-semibold">RPL Department</p>
           </div>
         </Link>

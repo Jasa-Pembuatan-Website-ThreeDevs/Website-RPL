@@ -24,7 +24,7 @@ const Navbar = () => {
             </div>
             <div>
               <h1 className="text-sm font-bold tracking-wide leading-none text-white">
-                SMK Muhammadiyah
+                SMKS Muhammadiyah 1 Genteng
               </h1>
               <p className="text-[11px] text-[#00F5A0] font-semibold mt-1 tracking-widest">
                 RPL DEPARTMENT

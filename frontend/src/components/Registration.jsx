@@ -11,8 +11,6 @@ export function RegistrationPage({ onNavigate }) {
     reason: "",
   });
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // Submit to backend API
