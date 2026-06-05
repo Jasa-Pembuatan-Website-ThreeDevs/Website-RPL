@@ -18,7 +18,6 @@ const TeachersPage = lazy(() => import("./pages/TeachersPage"));
 const GalleryPage = lazy(() => import("./pages/GalleryPage"));
 const PostsPage = lazy(() => import("./pages/PostsPage"));
 const PartnersPage = lazy(() => import("./pages/PartnersPage"));
-const MaintenancePage = lazy(() => import("./pages/MaintenancePage"));
 const NotFound = lazy(() => import("./assets/pages/NotFound"));
 
 function AppRoutes({ isBackendMaintenance }) {
