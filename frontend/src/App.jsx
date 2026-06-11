@@ -18,6 +18,7 @@ const TeachersPage = lazy(() => import("./pages/TeachersPage"));
 const GalleryPage = lazy(() => import("./pages/GalleryPage"));
 const PostsPage = lazy(() => import("./pages/PostsPage"));
 const PartnersPage = lazy(() => import("./pages/PartnersPage"));
+const PrestasiPage = lazy(() => import("./pages/PrestasiPage"));
 const NotFound = lazy(() => import("./assets/pages/NotFound"));
 const MaintenancePage = lazy(() => import("./pages/MaintenancePage"));
 
@@ -60,6 +61,7 @@ function AppRoutes({ isBackendMaintenance }) {
           <Route path="/teachers" element={<TeachersPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/posts" element={<PostsPage />} />
+          <Route path="/prestasi" element={<PrestasiPage />} />
           <Route path="/partners" element={<PartnersPage />} />
           <Route path="/auth/v1/secure-login" element={<Login />} />
           <Route path="/student/register" element={<StudentRegister />} />

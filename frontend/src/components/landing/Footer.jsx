@@ -16,12 +16,13 @@ const Footer = () => {
           {/* --- BRAND COLUMN --- */}
           <div className="flex flex-col gap-6 md:col-span-1">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-[#00F5A0] to-[#4bf3ce] rounded-xl flex items-center justify-center font-bold text-black text-sm tracking-tighter shadow-lg shadow-emerald-500/30">
+              {/* <div className="aspect-square h-12  bg-gradient-to-br from-[#00F5A0] to-[#4bf3ce] rounded-full flex items-center justify-center font-bold text-black text-sm tracking-tighter shadow-lg shadow-emerald-500/30">
                 SM
-              </div>
+              </div> */}
+              <img src="public/logo1.webp" className="w-14 h-12 rounded-full" alt="Logo" />
               <div>
                 <h4 className="text-sm font-bold text-white">SMKS Muhammadiyah 1 Genteng</h4>
-                <p className="text-[11px] text-[#00F5A0] font-semibold mt-0.5">RPL Department</p>
+                <p className="text-[11px] text-[#00F5A0] font-semibold mt-0.5">PPLG SMEMSA</p>
               </div>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
@@ -161,7 +162,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Copyright Text */}
           <div className="text-sm text-gray-400 text-center md:text-left">
-            <p>© {currentYear} SMKS Muhammadiyah 1 Genteng - Jurusan RPL.</p>
+            <p>© {currentYear} SMKS Muhammadiyah 1 Genteng - by PPLG.</p>
           </div>
 
           {/* Tagline */}

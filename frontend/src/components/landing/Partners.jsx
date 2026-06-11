@@ -166,7 +166,7 @@ const Partners = () => {
       )}
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
         {[
           {
             label: 'Perusahaan Mitra',
@@ -175,14 +175,6 @@ const Partners = () => {
             border: 'from-emerald-500/20',
             accent: 'text-emerald-400',
             color: '#00F5A0',
-          },
-          {
-            label: 'Kuota Magang',
-            value: totalQuota > 0 ? `${totalQuota}` : '—',
-            icon: '🎓',
-            border: 'from-cyan-500/20',
-            accent: 'text-cyan-400',
-            color: '#00D2FF',
           },
           {
             label: 'Program Aktif',

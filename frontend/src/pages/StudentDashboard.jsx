@@ -44,7 +44,7 @@ export default function StudentDashboard() {
               </div>
               <div className="hidden sm:block">
                 <h1 className="text-sm font-bold leading-none">Dashboard Siswa</h1>
-                <p className="text-[11px] text-[#00F5A0] font-semibold mt-0.5">RPL Department</p>
+                <p className="text-[11px] text-[#00F5A0] font-semibold mt-0.5">PPLG SMEMSA</p>
               </div>
             </Link>
           </div>
