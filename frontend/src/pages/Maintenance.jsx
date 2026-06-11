@@ -24,7 +24,7 @@ const Maintenance = () => {
           <div className="text-left">
             <h1 className="text-lg font-bold leading-none">SMKS Muhammadiyah 1 Genteng</h1>
             <p className="text-[12px] text-[#00F5A0] font-semibold mt-1 tracking-widest uppercase">
-              RPL DEPARTMENT
+              PPLG SMEMSA
             </p>
           </div>
         </motion.div>

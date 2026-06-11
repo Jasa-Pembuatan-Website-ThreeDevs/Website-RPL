@@ -515,7 +515,7 @@ const Showcase = () => {
                 {/* Footer simple for Showcase */}
                 <footer className="relative z-10 py-10 text-center border-t border-gray-800/50">
                     <p className="text-gray-500 text-sm">
-                        &copy; {new Date().getFullYear()} RPL Department - SMK Muhammadiyah 1 Genteng
+                        &copy; {new Date().getFullYear()} PPLG SMEMSA - SMK Muhammadiyah 1 Genteng
                     </p>
                 </footer>
             </div>

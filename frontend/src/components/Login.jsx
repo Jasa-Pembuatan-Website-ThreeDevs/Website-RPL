@@ -1,12 +1,18 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { GlassCard, GlassInput, GlassButton, AlertBanner } from './ui/GlassCard';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
+import {
+  GlassCard,
+  GlassInput,
+  GlassButton,
+  AlertBanner,
+} from "./ui/GlassCard";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -14,13 +20,13 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setError("");
     try {
       const user = await login(email.trim(), password);
-      if (user.role === 'admin') {
-        navigate('/admin');
+      if (user.role === "admin") {
+        navigate("/admin");
       } else {
-        navigate('/dashboard');
+        navigate("/dashboard");
       }
     } catch (err) {
       setError(err.message);
@@ -34,20 +40,21 @@ const Login = () => {
       <div className="absolute top-[20%] right-[-10%] w-[400px] h-[400px] bg-[#00F5A0]/10 rounded-full blur-[120px]" />
       <div className="absolute bottom-[15%] left-[-10%] w-[350px] h-[350px] bg-[#00D2FF]/10 rounded-full blur-[100px]" />
 
-      <GlassCard className="z-10 w-full max-w-md p-8 mx-4 flex flex-col items-center">
-        <Link to="/" className="mb-6 flex items-center gap-3">
-          <div className="w-10 h-10 bg-[#00F5A0] rounded-xl flex items-center justify-center font-bold text-black text-sm">
-            SM
-          </div>
-          <div className="text-left">
-            <p className="text-sm font-bold text-white">SMKS Muhammadiyah 1 genteng</p>
-            <p className="text-[11px] text-[#00F5A0] font-semibold">RPL Department</p>
-          </div>
-        </Link>
+      <Link
+        to="/"
+        className="fixed top-8 left-8 z-20 flex items-center gap-2 px-4 py-2 border border-gray-600/40 bg-[#12181F]/40 backdrop-blur rounded-xl text-sm text-gray-300 hover:text-white"
+      >
+        <ArrowLeft className="w-4 h-4" /> Beranda
+      </Link>
 
+      <GlassCard className="z-10 w-full max-w-md p-8 mx-4 flex flex-col items-center">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-white tracking-tight mb-2">Masuk</h2>
-          <p className="text-gray-400 text-sm">Dashboard siswa atau admin CMS</p>
+          <h2 className="text-2xl font-bold text-white tracking-tight mb-2">
+            Masuk
+          </h2>
+          <p className="text-gray-400 text-sm">
+            Dashboard siswa atau admin CMS
+          </p>
         </div>
 
         <AlertBanner message={error} />
@@ -68,19 +75,22 @@ const Login = () => {
             required
           />
           <GlassButton type="submit" className="w-full" disabled={loading}>
-            {loading ? 'Memproses...' : 'Masuk'}
+            {loading ? "Memproses..." : "Masuk"}
           </GlassButton>
         </form>
 
         <p className="mt-6 text-sm text-gray-500">
-          Siswa baru?{' '}
-          <Link to="/student/register" className="text-[#00F5A0] hover:underline">
+          Siswa baru?{" "}
+          <Link
+            to="/student/register"
+            className="text-[#00F5A0] hover:underline"
+          >
             Daftar akun siswa
           </Link>
         </p>
 
         <p className="mt-4 text-white/20 text-xs uppercase tracking-widest font-semibold">
-          © 2026 RPL Department
+          © 2026 PPLG SMEMSA
         </p>
       </GlassCard>
     </div>

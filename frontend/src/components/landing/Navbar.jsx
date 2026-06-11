@@ -8,6 +8,7 @@ const Navbar = () => {
     { label: "Home", to: "/" },
     { label: "Mitra", to: "/partners" },
     { label: "Berita", to: "/posts" },
+    { label: "Prestasi", to: "/prestasi" },
     { label: "Galeri", to: "/gallery" },
     { label: "Guru", to: "/teachers" },
     { label: "Showcase", to: "/showcase" },
@@ -27,7 +28,7 @@ const Navbar = () => {
                 SMKS Muhammadiyah 1 Genteng
               </h1>
               <p className="text-[11px] text-[#00F5A0] font-semibold mt-1 tracking-widest">
-                RPL DEPARTMENT
+                PPLG SMEMSA
               </p>
             </div>
           </Link>
@@ -47,15 +48,9 @@ const Navbar = () => {
             <div>
               <Link
                 to="/auth/v1/secure-login"
-                className="px-5 py-2.5 border border-gray-600/40 bg-gradient-to-br from-gray-900/40 to-gray-800/20 rounded-lg hover:border-[#00F5A0]/60 hover:bg-emerald-500/10 hover:text-[#00F5A0] transition-all duration-200 font-semibold"
+                className="px-4 py-2.5 bg-gradient-to-r from-[#00F5A0] to-[#4bf3ce] text-black font-semibold rounded-lg hover:brightness-105 hover:scale-105 transition-all duration-200"
               >
                 Masuk
-              </Link>
-              <Link
-                to="/student/register"
-                className="ml-2 px-4 py-2.5 bg-gradient-to-r from-[#00F5A0] to-[#4bf3ce] text-black font-semibold rounded-lg hover:brightness-105 hover:scale-105 transition-all duration-200"
-              >
-                Daftar Akun
               </Link>
             </div>
           </nav>
@@ -93,16 +88,9 @@ const Navbar = () => {
               <Link
                 to="/auth/v1/secure-login"
                 onClick={() => setIsMenuOpen(false)}
-                className="px-4 py-2.5 border border-gray-600/40 bg-gradient-to-br from-gray-900/40 to-gray-800/20 rounded-lg text-white hover:border-[#00F5A0]/60 hover:bg-emerald-500/10 hover:text-[#00F5A0] transition-all duration-200 font-semibold"
+                className="px-4 py-2.5 bg-gradient-to-r from-[#00F5A0] to-[#4bf3ce] text-black font-semibold rounded-lg hover:brightness-105 hover:scale-105 transition-all duration-200 text-center"
               >
                 Masuk
-              </Link>
-              <Link
-                to="/student/register"
-                onClick={() => setIsMenuOpen(false)}
-                className="mt-2 px-4 py-2.5 bg-gradient-to-r from-[#00F5A0] to-[#4bf3ce] text-black font-semibold rounded-lg hover:brightness-105 hover:scale-105 transition-all duration-200 text-center"
-              >
-                Daftar Akun
               </Link>
             </nav>
           </div>
