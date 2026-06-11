@@ -29,18 +29,34 @@ const TechStack = () => {
     }
   }, []);
 
-  const techItems = [
-    { name: "Python", color: "#3776AB", icon: "🐍" },
-    { name: "React", color: "#61DAFB", icon: "⚛️" },
-    { name: "TypeScript", color: "#3178C6", icon: "TS" },
-    { name: "Laravel", color: "#FF2D20", icon: "🔴" },
-    { name: "MySQL", color: "#00758F", icon: "🗄️" },
-    { name: "Git", color: "#F1502F", icon: "⎇" },
-    { name: "Docker", color: "#2496ED", icon: "🐳" },
-    { name: "Vue.js", color: "#4FC08D", icon: "✓" },
-    { name: "Node.js", color: "#339933", icon: "⬢" },
-    { name: "Tailwind", color: "#06B6D4", icon: "🎨" },
-  ];
+  const techItems = TECH_STACK;
+
+  const renderTechCard = (tech, key) => (
+    <div
+      key={key}
+      className="group/item flex flex-col items-center gap-3 px-7 py-5 rounded-2xl border border-gray-700/50 bg-gradient-to-br from-gray-900/50 to-gray-900/20 backdrop-blur-sm hover:border-blue-500/60 hover:bg-blue-500/10 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 whitespace-nowrap flex-shrink-0 min-w-max hover:scale-110"
+      style={{
+        borderColor: `${tech.color}40`,
+        backgroundImage: `linear-gradient(135deg, ${tech.color}08, transparent)`,
+      }}
+    >
+      <div
+        className="w-14 h-14 rounded-xl flex items-center justify-center p-3 group-hover/item:scale-125 transition-transform duration-300"
+        style={{ backgroundColor: `${tech.color}25` }}
+      >
+        <img
+          src={tech.logo}
+          alt={`${tech.name} logo`}
+          className="h-full w-full object-contain"
+          loading="lazy"
+          draggable="false"
+        />
+      </div>
+      <span className="text-sm font-bold text-gray-200 group-hover/item:text-white transition-colors">
+        {tech.name}
+      </span>
+    </div>
+  );
 
   return (
     <section id="tech-stack" className="pt-24 scroll-mt-28">
@@ -69,48 +85,10 @@ const TechStack = () => {
         {/* Marquee Track */}
         <div className="marquee-track flex gap-6 md:gap-8 py-10 will-change-transform">
           {/* First Set */}
-          {techItems.map((tech, idx) => (
-            <div
-              key={`tech-1-${idx}`}
-              className="group/item flex flex-col items-center gap-3 px-7 py-5 rounded-2xl border border-gray-700/50 bg-gradient-to-br from-gray-900/50 to-gray-900/20 backdrop-blur-sm hover:border-blue-500/60 hover:bg-blue-500/10 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 whitespace-nowrap flex-shrink-0 min-w-max hover:scale-110"
-              style={{
-                borderColor: `${tech.color}40`,
-                backgroundImage: `linear-gradient(135deg, ${tech.color}08, transparent)`,
-              }}
-            >
-              <div
-                className="w-14 h-14 rounded-xl flex items-center justify-center text-3xl font-bold group-hover/item:scale-125 transition-transform duration-300"
-                style={{ backgroundColor: `${tech.color}25` }}
-              >
-                {tech.icon}
-              </div>
-              <span className="text-sm font-bold text-gray-200 group-hover/item:text-white transition-colors">
-                {tech.name}
-              </span>
-            </div>
-          ))}
+          {techItems.map((tech, idx) => renderTechCard(tech, `tech-1-${idx}`))}
 
           {/* Duplicate Set untuk infinite loop */}
-          {techItems.map((tech, idx) => (
-            <div
-              key={`tech-2-${idx}`}
-              className="group/item flex flex-col items-center gap-3 px-7 py-5 rounded-2xl border border-gray-700/50 bg-gradient-to-br from-gray-900/50 to-gray-900/20 backdrop-blur-sm hover:border-blue-500/60 hover:bg-blue-500/10 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 whitespace-nowrap flex-shrink-0 min-w-max hover:scale-110"
-              style={{
-                borderColor: `${tech.color}40`,
-                backgroundImage: `linear-gradient(135deg, ${tech.color}08, transparent)`,
-              }}
-            >
-              <div
-                className="w-14 h-14 rounded-xl flex items-center justify-center text-3xl font-bold group-hover/item:scale-125 transition-transform duration-300"
-                style={{ backgroundColor: `${tech.color}25` }}
-              >
-                {tech.icon}
-              </div>
-              <span className="text-sm font-bold text-gray-200 group-hover/item:text-white transition-colors">
-                {tech.name}
-              </span>
-            </div>
-          ))}
+          {techItems.map((tech, idx) => renderTechCard(tech, `tech-2-${idx}`))}
         </div>
       </div>
 

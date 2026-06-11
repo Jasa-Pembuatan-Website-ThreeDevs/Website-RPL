@@ -1,12 +1,54 @@
 export const TECH_STACK = [
-  { name: "Python", color: "#3776AB", icon: "🐍" },
-  { name: "Figma", color: "#F24E1E", icon: "✦" },
-  { name: "TypeScript", color: "#3178C6", icon: "TS" },
-  { name: "MySQL", color: "#00758F", icon: "🗄️" },
-  { name: "Git", color: "#F1502F", icon: "⎇" },
-  { name: "Docker", color: "#2496ED", icon: "🐳" },
-  { name: "Vue.js", color: "#4FC08D", icon: "✓" },
-  { name: "PHP", color: "#777BB4", icon: "⟨⟩" },
+  {
+    name: "Python",
+    color: "#3776AB",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
+  },
+  {
+    name: "React",
+    color: "#61DAFB",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
+  },
+  {
+    name: "TypeScript",
+    color: "#3178C6",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg",
+  },
+  {
+    name: "Laravel",
+    color: "#FF2D20",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg",
+  },
+  {
+    name: "MySQL",
+    color: "#00758F",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg",
+  },
+  {
+    name: "Git",
+    color: "#F1502F",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg",
+  },
+  {
+    name: "Docker",
+    color: "#2496ED",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg",
+  },
+  {
+    name: "Vue.js",
+    color: "#4FC08D",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg",
+  },
+  {
+    name: "Node.js",
+    color: "#339933",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg",
+  },
+  {
+    name: "Tailwind CSS",
+    color: "#06B6D4",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
+  },
 ];
 
 export const PARTNERS = [

@@ -1,5 +1,23 @@
 import { memo } from "react";
-import { Mail, MapPin, Phone, Heart } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
+
+const socialIcons = {
+  Instagram: (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+      <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6Zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" />
+    </svg>
+  ),
+  YouTube: (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+      <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8ZM9.6 15.5v-7l6.3 3.5-6.3 3.5Z" />
+    </svg>
+  ),
+  GitHub: (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+      <path d="M12 .5A12 12 0 0 0 8.2 23.9c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.3 3.6 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2A11.4 11.4 0 0 1 12 5c1 0 2.1.1 3 .4 2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.9.1 3.2.8.9 1.2 2 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z" />
+    </svg>
+  ),
+};
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -96,19 +114,19 @@ const Footer = () => {
             <div className="flex items-center gap-3 flex-wrap">
               {[
                 {
-                  icon: "📷",
+                  icon: socialIcons.Instagram,
                   href: "https://instagram.com/smkmuh1genteng",
                   label: "Instagram",
                   color: "hover:text-pink-400 hover:border-pink-500/40",
                 },
                 {
-                  icon: "📹",
+                  icon: socialIcons.YouTube,
                   href: "https://youtube.com/@smkmuh1genteng",
                   label: "YouTube",
                   color: "hover:text-red-400 hover:border-red-500/40",
                 },
                 {
-                  icon: "💻",
+                  icon: socialIcons.GitHub,
                   href: "https://github.com/smkmuh1genteng",
                   label: "GitHub",
                   color: "hover:text-gray-300 hover:border-gray-500/40",
