@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LogOut, User, FolderKanban, Menu, X } from 'lucide-react';
+import { LogOut, User, FolderKanban, Menu, X, Share2, Check } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import ProfileSection from '../components/student/ProfileSection';
 import ProjectsCrud from '../components/student/ProjectsCrud';
@@ -15,11 +15,32 @@ export default function StudentDashboard() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('profile');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   async function handleLogout() {
     await logout();
     navigate('/auth/v1/secure-login');
   }
+
+  const handleShare = async () => {
+    const shareData = {
+      title: 'Dashboard Siswa RPL',
+      text: `Lihat dashboard saya di RPL Department!`,
+      url: window.location.origin,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(window.location.origin);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch (err) {
+      console.error('Error sharing:', err);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#0A0E12] text-white font-sans antialiased relative overflow-hidden">
@@ -49,12 +70,26 @@ export default function StudentDashboard() {
             </Link>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <span className="text-sm text-gray-400 hidden md:inline">{user?.name}</span>
+            
+            <button
+              type="button"
+              onClick={handleShare}
+              className={`flex items-center gap-2 px-3 sm:px-4 py-2 border transition-all rounded-xl text-sm ${
+                copied 
+                  ? 'border-[#00F5A0]/50 bg-[#00F5A0]/10 text-[#00F5A0]' 
+                  : 'border-gray-600/40 bg-[#12181F]/40 backdrop-blur text-gray-300 hover:text-[#00F5A0] hover:border-[#00F5A0]/40'
+              }`}
+            >
+              {copied ? <Check className="w-4 h-4" /> : <Share2 className="w-4 h-4" />}
+              <span className="hidden sm:inline">{copied ? 'Tersalin!' : 'Bagikan'}</span>
+            </button>
+
             <button
               type="button"
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 border border-gray-600/40 bg-[#12181F]/40 backdrop-blur rounded-xl text-sm text-gray-300 hover:text-white hover:border-red-500/40 transition-colors"
+              className="flex items-center gap-2 px-3 sm:px-4 py-2 border border-gray-600/40 bg-[#12181F]/40 backdrop-blur rounded-xl text-sm text-gray-300 hover:text-white hover:border-red-500/40 transition-colors"
             >
               <LogOut className="w-4 h-4" />
               <span className="hidden sm:inline">Keluar</span>
