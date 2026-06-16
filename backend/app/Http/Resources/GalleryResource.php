@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Support\MediaUrl;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
 
 class GalleryResource extends JsonResource
 {
@@ -13,7 +13,7 @@ class GalleryResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'image_url' => $this->image_path ? asset(Storage::url($this->image_path)) : null,
+            'image_url' => MediaUrl::fromPath($this->image_path),
             'created_at' => $this->created_at,
         ];
     }

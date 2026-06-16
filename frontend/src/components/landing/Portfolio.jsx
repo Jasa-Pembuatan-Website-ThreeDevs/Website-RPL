@@ -1,5 +1,5 @@
 import { memo, useEffect, useState } from "react";
-import { publicApi, storageUrl } from "../../lib/api";
+import { publicApi, resolveMediaUrl } from "../../lib/api";
 import Reveal from "./Reveal";
 
 const Portfolio = () => {
@@ -57,7 +57,7 @@ const Portfolio = () => {
               <div className="relative h-64 bg-gradient-to-br from-cyan-500/20 via-emerald-500/10 to-transparent overflow-hidden">
                 {project.thumbnail_image ? (
                   <img
-                    src={storageUrl(project.thumbnail_image)}
+                    src={resolveMediaUrl(project.thumbnail_image)}
                     alt={project.title}
                     className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-500"
                     loading="lazy"

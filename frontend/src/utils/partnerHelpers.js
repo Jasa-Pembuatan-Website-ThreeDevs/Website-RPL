@@ -1,4 +1,4 @@
-import { storageUrl } from '../lib/api';
+import { resolveMediaUrl, storageUrl } from '../lib/api';
 
 const ACCENT_PALETTE = [
   '#00F5A0',
@@ -21,11 +21,27 @@ export function hashAccentColor(name = '') {
 
 export function normalizePartner(partner) {
   const name = partner.company_name || partner.name || 'Mitra';
-  const logo =
-    partner.logo_url ||
-    (partner.logo_image?.startsWith?.('http')
-      ? partner.logo_image
-      : storageUrl(partner.logo_image));
+
+  const resolveLogo = (p) => {
+    // 1) explicit logo_url from API
+    const urlFromField = resolveMediaUrl(p.logo_url);
+    if (urlFromField) return urlFromField;
+
+    // 2) logo_image may be a path string or an object { url }
+    const img = p.logo_image ?? p.logo ?? null;
+    if (img && typeof img === 'string') {
+      return resolveMediaUrl(img) || storageUrl(img) || null;
+    }
+
+    if (img && typeof img === 'object') {
+      const candidate = img.url || img.path || img.filename || null;
+      return resolveMediaUrl(candidate) || storageUrl(candidate) || null;
+    }
+
+    return null;
+  };
+
+  const logo = resolveLogo(partner);
 
   return {
     id: partner.id ?? name,
