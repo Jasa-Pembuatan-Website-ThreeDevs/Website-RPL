@@ -67,9 +67,19 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <GlassButton type="submit" className="w-full" disabled={loading}>
-            {loading ? 'Memproses...' : 'Masuk'}
-          </GlassButton>
+          <div className="grid grid-cols-2 gap-4 w-full">
+            <GlassButton
+              type="button"
+              variant="secondary"
+              className="w-full"
+              onClick={() => navigate('/')}
+            >
+              Beranda
+            </GlassButton>
+            <GlassButton type="submit" className="w-full" disabled={loading}>
+              {loading ? 'Memproses...' : 'Masuk'}
+            </GlassButton>
+          </div>
         </form>
 
         <p className="mt-6 text-sm text-gray-500">
