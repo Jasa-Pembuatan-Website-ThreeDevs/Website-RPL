@@ -74,7 +74,6 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-<<<<<<< HEAD
           <div className="grid grid-cols-2 gap-4 w-full">
             <GlassButton
               type="button"
@@ -88,11 +87,6 @@ const Login = () => {
               {loading ? 'Memproses...' : 'Masuk'}
             </GlassButton>
           </div>
-=======
-          <GlassButton type="submit" className="w-full" disabled={loading}>
-            {loading ? "Memproses..." : "Masuk"}
-          </GlassButton>
->>>>>>> 449a36c29c0c0d0455eab87351b72492b2dde350
         </form>
 
         <p className="mt-6 text-sm text-gray-500">

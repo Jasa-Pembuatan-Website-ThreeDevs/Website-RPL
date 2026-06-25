@@ -1,12 +1,14 @@
 export const TECH_STACK = [
-  { name: "Python", color: "#3776AB", icon: "🐍" },
-  { name: "Figma", color: "#F24E1E", icon: "✦" },
-  { name: "TypeScript", color: "#3178C6", icon: "TS" },
-  { name: "MySQL", color: "#00758F", icon: "🗄️" },
-  { name: "Git", color: "#F1502F", icon: "⎇" },
-  { name: "Docker", color: "#2496ED", icon: "🐳" },
-  { name: "Vue.js", color: "#4FC08D", icon: "✓" },
-  { name: "PHP", color: "#777BB4", icon: "⟨⟩" },
+  { name: "React", color: "#61DAFB", logo: "react" },
+  { name: "Laravel", color: "#FF2D20", logo: "laravel" },
+  { name: "TypeScript", color: "#3178C6", logo: "typescript" },
+  { name: "Vue.js", color: "#4FC08D", logo: "vue" },
+  { name: "Node.js", color: "#339933", logo: "node" },
+  { name: "Tailwind CSS", color: "#06B6D4", logo: "tailwind" },
+  { name: "Python", color: "#3776AB", logo: "python" },
+  { name: "MySQL", color: "#00758F", logo: "mysql" },
+  { name: "Git", color: "#F1502F", logo: "git" },
+  { name: "Docker", color: "#2496ED", logo: "docker" },
 ];
 
 export const PARTNERS = [
