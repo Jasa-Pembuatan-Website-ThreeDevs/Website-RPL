@@ -19,17 +19,26 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <nav className="border border-gray-600/40 rounded-2xl px-6 py-3.5 bg-[#0A0E12]/70 backdrop-blur-xl flex justify-between items-center shadow-lg shadow-emerald-500/5 hover:border-gray-600/60 transition-all duration-300">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 hover:scale-105 transition-transform">
-            <div className="w-11 h-11 rounded-xl flex items-center justify-center">
-              <img src="logo1.webp" class="h-full w-full object-cover " />
+          <Link to="/" className="flex items-center gap-3 hover:scale-105 transition-transform group">
+            <div className="relative w-full h-12 sm:w-11 sm:h-11 rounded-xl overflow-hidden shadow-lg shadow-emerald-500/20 ring-1 ring-white/10 group-hover:shadow-emerald-500/40 group-hover:ring-white/30 transition-all duration-300">
+              <img
+                src="/Logo-RPL.png"
+                className="h-full w-full object-cover"
+                alt="Logo RPL - SMKS Muhammadiyah 1 Genteng"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <div>
-              <h1 className="text-sm font-bold tracking-wide leading-none text-white">
-                SMKS Muhammadiyah 1 Genteng
+            <div className="flex flex-col gap-0.5">
+              <h1 className="text-xs sm:text-xs font-bold tracking-wide leading-none text-white group-hover:text-[#00F5A0] transition-colors">
+                PPLG
               </h1>
-              <p className="text-[11px] text-[#00F5A0] font-semibold mt-1 tracking-widest">
-                PPLG SMEMSA
-              </p>
+              <div className="flex items-center gap-1">
+                <p className="text-[10px] sm:text-[11px] text-[#00F5A0] font-semibold tracking-widest opacity-90 group-hover:opacity-100 transition-opacity">
+                  SMEMSA
+                </p>
+                <span className="w-1 h-1 bg-[#00F5A0]/60 rounded-full" />
+              </div>
             </div>
           </Link>
 

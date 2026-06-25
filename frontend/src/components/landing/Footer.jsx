@@ -15,14 +15,22 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-8 mb-16">
           {/* --- BRAND COLUMN --- */}
           <div className="flex flex-col gap-6 md:col-span-1">
-            <div className="flex items-center gap-3">
-              {/* <div className="aspect-square h-12  bg-gradient-to-br from-[#00F5A0] to-[#4bf3ce] rounded-full flex items-center justify-center font-bold text-black text-sm tracking-tighter shadow-lg shadow-emerald-500/30">
-                SM
-              </div> */}
-              <img src="public/logo1.webp" className="w-14 h-12 rounded-full" alt="Logo" />
-              <div>
-                <h4 className="text-sm font-bold text-white">SMKS Muhammadiyah 1 Genteng</h4>
-                <p className="text-[11px] text-[#00F5A0] font-semibold mt-0.5">PPLG SMEMSA</p>
+            <div className="flex items-center gap-3 group">
+              <div className="relative w-14 h-14 sm:w-12 sm:h-12 rounded-full overflow-hidden shadow-lg shadow-emerald-500/20 ring-1 ring-white/10 group-hover:shadow-emerald-500/40 group-hover:ring-white/30 transition-all duration-300">
+                <img
+                  src="/Logo-RPL.png"
+                  className="w-full h-full object-cover"
+                  alt="Logo RPL - SMKS Muhammadiyah 1 Genteng"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+              <div className="flex flex-col gap-0.5">
+                <h4 className="text-sm font-bold text-white group-hover:text-[#00F5A0] transition-colors">SMKS Muhammadiyah 1 Genteng</h4>
+                <div className="flex items-center gap-1">
+                  <p className="text-[10px] sm:text-[11px] text-[#00F5A0] font-semibold opacity-90 group-hover:opacity-100 transition-opacity">PPLG SMEMSA</p>
+                  <span className="w-1 h-1 bg-[#00F5A0]/60 rounded-full" />
+                </div>
               </div>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
