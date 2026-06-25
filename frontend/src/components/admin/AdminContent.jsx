@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect, useCallback } from 'react';
 import { Plus, Pencil, Trash2, Eye } from 'lucide-react';
 import { cmsApi, resolveMediaUrl } from '../../lib/api';

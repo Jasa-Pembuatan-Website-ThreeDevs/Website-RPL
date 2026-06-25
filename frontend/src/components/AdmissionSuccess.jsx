@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { CheckCircle, PartyPopper, ArrowRight, Download, Home, GraduationCap } from "lucide-react";
+import { CheckCircle, PartyPopper, Download, Home, GraduationCap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function AdmissionSuccess() {

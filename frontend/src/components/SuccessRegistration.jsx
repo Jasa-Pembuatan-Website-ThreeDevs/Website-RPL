@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { CheckCircle, ArrowLeft, Home, Info } from "lucide-react";
+import { CheckCircle, Home, Info } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function SuccessRegistration() {

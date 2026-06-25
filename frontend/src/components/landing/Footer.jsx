@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Mail, MapPin, Phone, Heart } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -20,15 +20,15 @@ const Footer = () => {
                 <img
                   src="/Logo-RPL.png"
                   className="w-full h-full object-cover"
-                  alt="Logo RPL - SMKS Muhammadiyah 1 Genteng"
+                  alt="Logo PPLG - SMEMSA"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="flex flex-col gap-0.5">
-                <h4 className="text-sm font-bold text-white group-hover:text-[#00F5A0] transition-colors">SMKS Muhammadiyah 1 Genteng</h4>
+                <h4 className="text-sm font-bold text-white group-hover:text-[#00F5A0] transition-colors">PPLG - SMEMSA</h4>
                 <div className="flex items-center gap-1">
-                  <p className="text-[10px] sm:text-[11px] text-[#00F5A0] font-semibold opacity-90 group-hover:opacity-100 transition-opacity">PPLG SMEMSA</p>
+                  <p className="text-[10px] sm:text-[11px] text-[#00F5A0] font-semibold opacity-90 group-hover:opacity-100 transition-opacity">PPLG-SMEMSA</p>
                   <span className="w-1 h-1 bg-[#00F5A0]/60 rounded-full" />
                 </div>
               </div>

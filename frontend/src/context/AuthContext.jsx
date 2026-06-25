@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useState, useCallback } from 'react';
 import { authApi, setToken, setUser, getStoredUser } from '../lib/api';
 import { useToast } from './ToastContext';
 
@@ -6,12 +7,8 @@ const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUserState] = useState(getStoredUser);
-  const [loading, setLoading] = useState(true);
+  const [loading] = useState(false);
   const { push } = useToast();
-
-  useEffect(() => {
-    setLoading(false);
-  }, []);
 
   const login = useCallback(async (email, password) => {
     const data = await authApi.login({ email, password });
@@ -20,7 +17,7 @@ export function AuthProvider({ children }) {
     setUserState(data.user);
     push('Login berhasil.', { type: 'success' });
     return data.user;
-  }, []);
+  }, [push]);
 
   const register = useCallback(async (payload) => {
     const data = await authApi.register(payload);

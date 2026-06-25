@@ -10,6 +10,7 @@ export function RegistrationPage({ onNavigate }) {
     whatsapp: "",
     reason: "",
   });
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
