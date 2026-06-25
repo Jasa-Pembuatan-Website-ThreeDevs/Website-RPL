@@ -1,6 +1,7 @@
-import { useState, useMemo, useEffect } from "react";
+/* eslint-disable react-hooks/set-state-in-effect */
+import { useState, useMemo, useEffect, useCallback } from "react";
 import Navbar from "../../components/landing/Navbar";
-import { ChevronDown, Share2, Star, Heart, Plus, Pencil, Trash2, GitBranch, ExternalLink, Loader2 } from "lucide-react";
+import { Share2, Star, Plus, Pencil, Trash2, GitBranch, ExternalLink, Loader2 } from "lucide-react";
 import { publicApi, studentApi, storageUrl, buildProjectFormData, getStoredUser } from "../../lib/api";
 import { useToast } from "../../context/ToastContext";
 import {
@@ -156,11 +157,7 @@ const Showcase = () => {
         return ["All", ...dbCategories.map(c => c.name)];
     }, [dbCategories]);
 
-    useEffect(() => {
-        loadData();
-    }, []);
-
-    async function loadData() {
+    const loadData = useCallback(async () => {
         setLoading(true);
         try {
             const [projData, catData] = await Promise.all([
@@ -174,7 +171,11 @@ const Showcase = () => {
         } finally {
             setLoading(false);
         }
-    }
+    }, [push]);
+
+    useEffect(() => {
+        loadData();
+    }, [loadData]);
 
     // Filter projects based on selected criteria
     const filteredProjects = useMemo(() => {

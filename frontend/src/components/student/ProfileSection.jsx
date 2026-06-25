@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect } from 'react';
 import { User, Link2 } from 'lucide-react';
 import { studentApi, storageUrl } from '../../lib/api';
@@ -23,10 +24,6 @@ export default function ProfileSection() {
   const [success, setSuccess] = useState('');
   const { push } = useToast();
 
-  useEffect(() => {
-    loadProfile();
-  }, []);
-
   async function loadProfile() {
     setLoading(true);
     setError('');
@@ -51,6 +48,10 @@ export default function ProfileSection() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    loadProfile();
+  }, []);
 
   function handleChange(e) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));

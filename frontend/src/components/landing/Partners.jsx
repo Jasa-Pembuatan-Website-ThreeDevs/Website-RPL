@@ -121,7 +121,6 @@ const Partners = () => {
   }, []);
 
   const marqueeItems = ensureMarqueeItems(partners);
-  const totalQuota = partners.reduce((sum, p) => sum + (Number(p.quota) || 0), 0);
   const featured = partners.slice(0, 3);
 
   return (
@@ -305,7 +304,7 @@ const Partners = () => {
                 title: 'Pengembangan Skill',
                 text: 'Pelatihan berkelanjutan bersama profesional berpengalaman dari industri.',
               },
-            ].map((item, idx) => (
+            ].map((item) => (
               <div key={item.title} className="flex flex-col gap-4 group/benefit">
                 <div className="w-16 h-16 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-3xl group-hover/benefit:scale-125 group-hover/benefit:bg-emerald-500/30 transition-all duration-300">
                   {item.icon}

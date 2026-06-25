@@ -5,16 +5,19 @@ import { useEffect, useRef, useState } from 'react';
  */
 export function useInView(options = {}) {
   const ref = useRef(null);
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return true;
+    }
+    return false;
+  });
+
+  const { root, rootMargin, threshold } = options;
 
   useEffect(() => {
+    if (inView) return;
     const el = ref.current;
     if (!el) return;
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setInView(true);
-      return;
-    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -24,15 +27,15 @@ export function useInView(options = {}) {
         }
       },
       {
-        threshold: 0.12,
-        rootMargin: '0px 0px -48px 0px',
-        ...options,
+        threshold: threshold ?? 0.12,
+        rootMargin: rootMargin ?? '0px 0px -48px 0px',
+        root,
       }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [options.root, options.rootMargin, options.threshold]);
+  }, [inView, root, rootMargin, threshold]);
 
   return [ref, inView];
 }

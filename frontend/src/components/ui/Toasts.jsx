@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useToast } from '../../context/ToastContext';
 
 function ToastItem({ t }) {

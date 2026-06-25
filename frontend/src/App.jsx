@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { ToastProvider } from "./context/ToastContext";
@@ -25,7 +25,13 @@ const MaintenancePage = lazy(() => import("./pages/MaintenancePage"));
 function AppRoutes({ isBackendMaintenance }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const [lastPath, setLastPath] = useState(location.pathname);
   const [isLoading, setIsLoading] = useState(false);
+
+  if (location.pathname !== lastPath) {
+    setLastPath(location.pathname);
+    setIsLoading(true);
+  }
 
   // Manual override jika ingin memaksa mode maintenance dari frontend
   const isFrontendForcedMaintenance = false;
@@ -33,13 +39,13 @@ function AppRoutes({ isBackendMaintenance }) {
   const isMaintenanceActive = isBackendMaintenance || isFrontendForcedMaintenance;
 
   useEffect(() => {
-    setIsLoading(true);
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 800); // Simulate loading time
-
-    return () => clearTimeout(timer);
-  }, [location.pathname]);
+    if (isLoading) {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 800); // Simulate loading time
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading]);
 
   if (isMaintenanceActive && location.pathname !== "/maintenance") {
     return (
@@ -110,7 +116,7 @@ function App() {
     const checkBackendStatus = async () => {
       try {
         await publicApi.getCategories();
-      } catch (err) {
+      } catch {
         // api.js handles dispatching the event if it's 503
       } finally {
         setIsInitialLoading(false);
